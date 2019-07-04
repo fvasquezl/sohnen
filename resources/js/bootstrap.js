@@ -12,7 +12,7 @@ try {
 
     require('bootstrap');
     require('admin-lte');
-
+    require('icheck-bootstrap')
 
 } catch (e) {}
 

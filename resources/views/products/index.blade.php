@@ -13,7 +13,7 @@
 
             @include('products.shared.searchForm',$brands)
 
-            <table class="table table-hover" id="productsTable">
+            <table class="table table-bordered table-hover dataTable" role="grid" id="productsTable">
                 <thead>
                 <tr>
                     <th>SKU</th>
@@ -44,7 +44,7 @@
 
 @push('styles')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.bootstrap4.min.css"/>
+
 @endpush
 
 @push('scripts')
@@ -59,11 +59,11 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+    <script src="{{ asset('js/common.js') }}"></script>
 
     <script>
 
         let $productsTable;
-
 
         $(function () {
             $.ajaxSetup({
@@ -75,11 +75,12 @@
                 pageLength: 25,
                 processing: true,
                 serverSide:true,
-                scrollY: "50vh",
+                scrollY: "53vh",
                 scrollX: true,
-                dom: '"<\'row\'<\'col-md-6\'B><\'col-md-6 d-flex justify-content-end\'f>>" +\n' +
+                dom: '"<\'row\'<\'col-md-6\'B><\'col-md-6\'f>>" +\n' +
                     '"<\'row\'<\'col-sm-12\'tr>>" +\n' +
-                    '"<\'row\'<\'col-sm-12 col-md-5\'i><\'col-sm-12 col-md-7\'p>>"',
+                    '"<\'row\'<\'col-sm-12 col-md-5\'i ><\'col-sm-12 col-md-7\'p>>"',
+
                 buttons: {
                     dom: {
                         container: {
@@ -90,81 +91,46 @@
                             tag: null
                         }
                     },
+
                     buttons: [
                         {
-                            extend:'copyHtml5',
-                            text:'<i class="fa fa-clipboard"></i>Copiar',
-                            title:'Titulo de tabla copiada',
-                            titleAttr: 'Copiar',
-                            className: 'btn btn-app export',
-                            exportOptions: {
-                                columns: [ 0, 1 ]
-                            }
-                        },
-
-                        {
-                            extend:'pdfHtml5',
-                            text:'<i class="fa fa-file-pdf-o"></i>PDF',
-                            title:'Titulo de tabla en pdf',
-                            titleAttr: 'PDF',
-                            className: 'btn btn-app export pdf',
-                            exportOptions: {
-                                columns: [ 0, 1 ]
-                            },
-                            customize:function(doc) {
-                                doc.styles.title = {
-                                    color: '#4c8aa0',
-                                    fontSize: '30',
-                                    alignment: 'center'
-                                },
-                                doc.styles['td:nth-child(2)'] = {
-                                    width: '100px',
-                                    'max-width': '100px'
-                                },
-                                doc.styles.tableHeader = {
-                                    fillColor:'#4c8aa0',
-                                    color:'white',
-                                    alignment:'center'
-                                }, doc.content[1].margin = [ 100, 0, 100, 0 ]
-                            }
-
-                        },
-                        {
-                            extend:'excelHtml5',
-                            text:'<i class="fa fa-file-excel-o"></i>Excel',
-                            title:'Titulo de tabla en excel',
+                            extend: 'excelHtml5',
+                            text: '<i class="fas fa-file-excel"></i> Excel',
+                            title: 'Products to Excel',
                             titleAttr: 'Excel',
-                            className: 'btn btn-app export excel',
-                            exportOptions: {
-                                columns: [ 0, 1 ]
-                            },
+                            className: 'btn btn-sm btn-success',
+                            init: function(api, node, config) {
+                                $(node).removeClass('btn-secondary buttons-html5 buttons-excel')
+                            }
                         },
                         {
-                            extend:'csvHtml5',
-                            text:'<i class="fa fa-file-text-o"></i>CSV',
-                            title:'Titulo de tabla en CSV',
+                            extend: 'csvHtml5',
+                            text: '<i class="fas fa-file-csv"></i> CSV',
+                            title: 'Products to CSV',
                             titleAttr: 'CSV',
-                            className: 'btn btn-app export csv',
-                            exportOptions: {
-                                columns: [ 0, 1 ]
+                            className: 'btn btn-sm btn-warning',
+                            init: function(api, node, config) {
+                                $(node).removeClass('btn-secondary buttons-html5 buttons-csv');
                             }
                         },
                         {
-                            extend:'print',
-                            text:'<i class="fa fa-print"></i>Imprimir',
-                            title:'Titulo de tabla en impresion',
-                            titleAttr:'Imprimir',
-                            className:'btn btn-app export imprimir',
-                            exportOptions: {
-                                columns: [ 0, 1 ]
+                            extend: 'pageLength',
+                            titleAttr: 'Show Records',
+                            className: 'btn  btn-sm selectTable btn-primary',
+                            init: function(api, node, config) {
+                                $(node).removeClass('btn-secondary buttons-html5')
                             }
-                        },
-                        {
-                            extend:'pageLength',
-                            titleAttr:'Registros a mostrar',
-                            className:'selectTable'
+                        },{ text: '<i class="fas fa-plus-square"></i> Product',
+                            titleAttr: 'Create Product',
+                            className: 'btn btn-sm btn-info ',
+                            init: function(api, node, config) {
+                                $(node).removeClass('btn-secondary')
+                            },
+                            attr: {
+                                id:'create-btn'
+                            }
                         }
-                    ]
+                    ],
                 },
 
                 ajax: {
@@ -209,6 +175,9 @@
                 ]
             });
 
+            $productsTable.buttons().container()
+                .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+
 
             $('#productCatalog-form').on('submit',function(e){
                 $productsTable.draw();
@@ -228,11 +197,22 @@
                 e.stopPropagation();
                 let $tr = $(this).closest('tr');
                 let rowId = $tr.attr('id');
-                $('#productForm')
-                    .attr("action","/products/"+rowId)
-                    .attr('method','PUT');
-                $('#modelHeading').html("Update Product "+ rowId);
-                $('#ajaxModal').modal('show');
+                $('#ajaxModal').on('shown.bs.modal', function(){
+
+                    let form = $('#productForm');
+                        form.attr("action","/products/"+rowId)
+                        .attr('method','PUT');
+
+                    let data = getRowData(rowId);
+                    $(this).find(".modal-title").html("Update Product "+data.SKU);
+
+                    form.each(function () {
+                        $(this).find(':input').val(function(index, value){
+                            return data[this.id]
+                        });
+                    });
+
+                }).modal('show');
             });
 
             $(document).on('click','.delete-btn',function(e){
@@ -240,59 +220,15 @@
                 e.stopImmediatePropagation();
                 let $tr = $(this).closest('tr');
                 let rowId = $tr.attr('id');
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.value) {
-                        let request = $.ajax({
-                            url: `/products/`+ rowId,
-                            type: 'delete',
-                            dataType: 'json',
-                        });
-                        request.done(function(data) {
-                            Swal.fire(
-                                'Deleted!',
-                                data.message,
-                                'success'
-                            );
-                        });
-                        request.fail(function (jqXHR, textStatus, errorThrown) {
-                            Swal.fire('Failed!', "There was something wrong", "warning");
-                        });
-                    }
-                })
+                let url= `/products/`+ rowId;
+                deleteInfo(url);
             });
 
             $('#productForm').on('submit',function(e){
                 e.preventDefault();
                 let url = $(this).attr('action');
                 let method = $(this).attr('method');
-                let request = $.ajax({
-                    url: url,
-                    type: method,
-                    dataType: 'json',
-                    data: $(this).serialize(),
-                });
-                request.done(function(data) {
-                    $('#ajaxModal').modal('toggle');
-                    Swal.fire({
-                        position: 'top-end',
-                        type: 'success',
-                        title: data.message,
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                });
-                request.fail(function (jqXHR, textStatus, errorThrown) {
-                    Swal.fire('Failed!', "There was something wrong"+ textStatus, "warning");
-                });
+                saveInfo(url,method,this.form)
             });
         });
 

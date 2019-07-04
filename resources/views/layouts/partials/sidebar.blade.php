@@ -33,16 +33,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../../index.html" class="nav-link">
+                            <a href="{{route('users.index')}}"  class = "{{(request()->is('users') ? 'nav-link active' :  'nav-link')}}">
                                 <i class="fas fa-users"></i>
                                 <p>Users</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item">
-                    <a href="{{route('products.index')}}" {!! (Request::is('/') ? 'class="nav-link active"' : 'nav-link') !!}>
+                    <a href="{{route('products.index')}}"  class="{{(request()->is('products') ? 'nav-link active' : 'nav-link')}}" >
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Product Catalog

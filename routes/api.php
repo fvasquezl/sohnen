@@ -12,8 +12,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::name('api.')->group(function (){
-    Route::apiResource('products','Api\ProductCatalogController');
-  //  Route::apiResource('roles','Api\RolesController');
-});
+//Route::name('api.')->group(function (){
+//    Route::apiResource('products','Api\ProductCatalogController');
+//  //  Route::apiResource('roles','Api\RolesController');
+//});
 

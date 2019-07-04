@@ -41,12 +41,13 @@ class ProductsController extends Controller
                             }
                         },true)
                 ->addIndexColumn()
+                ->editColumn('SKU', '<a href="#" class="update-btn">{{$SKU}}</a>')
                 ->addColumn('Action', function($row){
                     $btns = '<a href="#" class="btn btn-primary btn-sm update-btn"><i class="fas fa-pencil-alt"></i></a>
                              <a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';
                     return $btns;
                 })
-                ->rawColumns(['Action'])
+                ->rawColumns(['SKU','Action'])
                 ->setRowId(function ($data) {
                     return $data->ID;
                 })
@@ -62,6 +63,12 @@ class ProductsController extends Controller
             'message' => 'The product has been created successfully'
         ], 200);
     }
+
+    public function show(Product $product)
+    {
+      return $product;
+    }
+
     public function update(Product $product)
     {
         return response()->json([

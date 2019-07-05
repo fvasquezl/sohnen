@@ -98,36 +98,17 @@
                             text: '<i class="fas fa-file-excel"></i> Excel',
                             title: 'Products to Excel',
                             titleAttr: 'Excel',
-                            className: 'btn btn-sm btn-success',
+                            className: 'btn btn-success',
                             init: function(api, node, config) {
                                 $(node).removeClass('btn-secondary buttons-html5 buttons-excel')
                             }
                         },
                         {
-                            extend: 'csvHtml5',
-                            text: '<i class="fas fa-file-csv"></i> CSV',
-                            title: 'Products to CSV',
-                            titleAttr: 'CSV',
-                            className: 'btn btn-sm btn-warning',
-                            init: function(api, node, config) {
-                                $(node).removeClass('btn-secondary buttons-html5 buttons-csv');
-                            }
-                        },
-                        {
                             extend: 'pageLength',
                             titleAttr: 'Show Records',
-                            className: 'btn  btn-sm selectTable btn-primary',
+                            className: 'btn selectTable btn-primary',
                             init: function(api, node, config) {
                                 $(node).removeClass('btn-secondary buttons-html5')
-                            }
-                        },{ text: '<i class="fas fa-plus-square"></i> Product',
-                            titleAttr: 'Create Product',
-                            className: 'btn btn-sm btn-info ',
-                            init: function(api, node, config) {
-                                $(node).removeClass('btn-secondary')
-                            },
-                            attr: {
-                                id:'create-btn'
                             }
                         }
                     ],

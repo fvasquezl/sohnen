@@ -1,9 +1,9 @@
-function saveInfo(url,method,formData){
+function saveInfo(url,method,form){
     let request = $.ajax({
         url: url,
         type: method,
         dataType: 'json',
-        data: formData,
+        data: $(form).serialize(),
     });
     request.done(function(data) {
         $('#ajaxModal').modal('toggle');
@@ -15,8 +15,27 @@ function saveInfo(url,method,formData){
             timer: 1500
         })
     });
-    request.fail(function (jqXHR, textStatus, errorThrown) {
-        Swal.fire('Failed!', "There was something wrong"+ textStatus, "warning");
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        if( jqXHR.status === 401 )
+            $( location ).prop( 'pathname', 'auth/login' );
+
+        if( jqXHR.status === 422 ) {
+
+            let $errors = jqXHR.responseJSON.errors;
+
+            RemoveErrorsFields(form);
+            $.each($errors, function( key, value ) {
+                let input = $(form).find(`[name=${key}]`);
+
+                $(input).addClass('is-invalid')
+                    .parent()
+                    .find('.invalid-feedback>strong')
+                    .text(value)
+                    .next('span.invalid-feedback');
+            });
+        }else{
+            Swal.fire('Failed!', "There was something wrong"+ textStatus, "warning");
+        }
     });
 }
 
@@ -80,5 +99,12 @@ function getRowData(id,column=''){
     }
 
     return myAjax(url, 'GET');
+}
+
+function RemoveErrorsFields(form){
+    $(form).each(function () {
+        let input = $(this).find(':input');
+        input.hasClass('is-invalid') ? input.removeClass('is-invalid') :'';
+    });
 }
 

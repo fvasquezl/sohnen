@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Products\UpdateProductRequest;
 use App\Product;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -42,7 +43,10 @@ class ProductsController extends Controller
                         },true)
                 ->addIndexColumn()
                 ->editColumn('SKU', '<a href="#" class="update-btn">{{$SKU}}</a>')
-                ->addColumn('Action', function($row){
+                ->addColumn('TotalStock',function($data){
+                    return $data->QtyNew +$data->QtyGradeB+$data->QtyGradeC+$data->QtyGradeX;
+                })
+                ->addColumn('Action', function($data){
                     $btns = '<a href="#" class="btn btn-primary btn-sm update-btn"><i class="fas fa-pencil-alt"></i></a>
                              <a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';
                     return $btns;
@@ -69,8 +73,10 @@ class ProductsController extends Controller
       return $product;
     }
 
-    public function update(Product $product)
+    public function update(UpdateProductRequest $request,Product $product)
     {
+        $request->updateProduct($product);
+
         return response()->json([
             'success' => true,
             'message' => 'The product has been updated successfully'

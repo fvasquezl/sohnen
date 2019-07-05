@@ -13,7 +13,7 @@
 
             @include('products.shared.searchForm',$brands)
 
-            <table class="table table-bordered table-hover dataTable" role="grid" id="productsTable">
+            <table class="table table-striped table-bordered table-hover nowrap DataTable" role="grid" id="productsTable">
                 <thead>
                 <tr>
                     <th>SKU</th>
@@ -31,7 +31,8 @@
                     <th>QtyX</th>
                     <th>SalePriceX</th>
                     <th>AddedDate</th>
-                    <th>TotalQtyPurchased</th>
+                    <th>TotalStock</th>
+                    <th>TQtyPurchased</th>
                     <th>FirstPurchaseDate</th>
                     <th width="100px">Action</th>
                 </tr>
@@ -44,7 +45,7 @@
 
 @push('styles')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css"/>
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.bootstrap4.min.css"/>
 @endpush
 
 @push('scripts')
@@ -59,11 +60,14 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
+
     <script src="{{ asset('js/common.js') }}"></script>
 
     <script>
 
         let $productsTable;
+
 
         $(function () {
             $.ajaxSetup({
@@ -77,6 +81,10 @@
                 serverSide:true,
                 scrollY: "53vh",
                 scrollX: true,
+                select:true,
+                // fixedColumns:   {
+                //     leftColumns: 4
+                // },
                 dom: '"<\'row\'<\'col-md-6\'B><\'col-md-6\'f>>" +\n' +
                     '"<\'row\'<\'col-sm-12\'tr>>" +\n' +
                     '"<\'row\'<\'col-sm-12 col-md-5\'i ><\'col-sm-12 col-md-7\'p>>"',
@@ -136,6 +144,7 @@
                     {data: "QtyGradeX"},
                     {data: "SalePriceGradeX"},
                     {data: "AddedDate"},
+                    {data: "TotalStock"},
                     {data: "TotalQtyPurchased"},
                     {data: "FirstPurchaseDate"},
                     {data: 'Action', name: 'Action', orderable: false, searchable: false},
@@ -144,16 +153,22 @@
                     {targets: 3,width: 300},
                     {targets: 2, width: 100},
                     {
-                        targets: [4, 5, 7, 8, 9, 11, 13],
+                        targets: [4, 5, 7, 9, 11, 13],
                         className: "text-right",
                         render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
                     },
                     {
-                        targets: [6, 8, 10, 12, 14, 15, 16],
+                        targets: [6, 8, 10, 12, 14, 15, 16, 17],
                         className: "text-center"
                     }
 
                 ]
+            });
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+                $($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust()
+                    .fixedColumns().relayout();
             });
 
             $productsTable.buttons().container()
@@ -209,7 +224,8 @@
                 e.preventDefault();
                 let url = $(this).attr('action');
                 let method = $(this).attr('method');
-                saveInfo(url,method,this.form)
+                saveInfo(url,method,this)
+                $productsTable.draw();
             });
         });
 

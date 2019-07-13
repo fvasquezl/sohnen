@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 
+Route::get('/category/{category}','CategoryController@show');
 
 Route::apiResource('products','ProductsController');
 

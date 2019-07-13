@@ -40,7 +40,7 @@
             </table>
         </div>
     </div>
-        @include('products.shared.modal')
+        @include('products.shared.modal',$categories)
 @endsection
 
 @push('styles')
@@ -82,9 +82,9 @@
                 scrollY: "53vh",
                 scrollX: true,
                 select:true,
-                // fixedColumns:   {
-                //     leftColumns: 4
-                // },
+                fixedColumns:   {
+                    leftColumns: 3
+                },
                 dom: '"<\'row\'<\'col-md-6\'B><\'col-md-6\'f>>" +\n' +
                     '"<\'row\'<\'col-sm-12\'tr>>" +\n' +
                     '"<\'row\'<\'col-sm-12 col-md-5\'i ><\'col-sm-12 col-md-7\'p>>"',
@@ -193,6 +193,7 @@
             $(document).on('click','.update-btn',function(e){
                 e.stopPropagation();
                 let $tr = $(this).closest('tr');
+
                 let rowId = $tr.attr('id');
                 $('#ajaxModal').on('shown.bs.modal', function(){
 
@@ -200,14 +201,21 @@
                         form.attr("action","/products/"+rowId)
                         .attr('method','PUT');
 
-                    let data = getRowData(rowId);
-                    $(this).find(".modal-title").html("Update Product "+data.SKU);
+                    let product = getRowData(rowId);
+                    let category = getRowData(product.CategoryID,'','/category');
+
+                    $(this).find(".modal-title").html("Update Product "+product.SKU);
 
                     form.each(function () {
                         $(this).find(':input').val(function(index, value){
-                            return data[this.id]
+                            return product[this.id]
+                        });
+
+                        $(this).find('label').text(function(index, value){
+                            return category[this.id];
                         });
                     });
+
 
                 }).modal('show');
             });
@@ -229,9 +237,6 @@
                 $productsTable.draw();
             });
         });
-
-
-
 
     </script>
 @endpush

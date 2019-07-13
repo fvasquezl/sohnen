@@ -32,6 +32,16 @@ class ProductResource extends JsonResource
             'AddedDate'=>$this->AddedDate,
             'TotalQtyPurchased'=>$this->TotalQtyPurchased,
             'FirstPurchaseDate'=>$this->FirstPurchaseDate,
+            'Attribute01' => $this->Attribute01,
+            'Attribute02' => $this->Attribute02,
+            'Attribute03' => $this->Attribute03,
+            'Attribute04' => $this->Attribute04,
+            'Attribute05' => $this->Attribute05,
+            'Attribute06' => $this->Attribute06,
+            'Attribute07' => $this->Attribute07,
+            'Attribute08' => $this->Attribute08,
+            'Attribute09' => $this->Attribute09,
+            'Attribute10' => $this->Attribute10,
         ];
     }
 }

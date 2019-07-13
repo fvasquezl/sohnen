@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\Products\UpdateProductRequest;
 use App\Product;
 use Illuminate\Contracts\Support\Renderable;
@@ -31,10 +32,12 @@ class ProductsController extends Controller
     {
 
         $brands =Product::groupBy('Brand')->pluck('Brand');
+        $categories = Category::select('CategoryID','CategoryName')->get()->toArray();
+
 
         if ($request->ajax()) {
 
-            $data = Product::query();
+            $data = Product::with('category');
 
             return Datatables::of($data)->filter(function($query) use($request) {
                             if($brand = $request->brand){
@@ -42,7 +45,7 @@ class ProductsController extends Controller
                             }
                         },true)
                 ->addIndexColumn()
-                ->editColumn('SKU', '<a href="#" class="update-btn">{{$SKU}}</a>')
+
                 ->addColumn('TotalStock',function($data){
                     return $data->QtyNew +$data->QtyGradeB+$data->QtyGradeC+$data->QtyGradeX;
                 })
@@ -51,13 +54,13 @@ class ProductsController extends Controller
                              <a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';
                     return $btns;
                 })
-                ->rawColumns(['SKU','Action'])
+                ->rawColumns(['Action'])
                 ->setRowId(function ($data) {
                     return $data->ID;
                 })
                 ->make(true);
         }
-        return view('products.index',compact('brands'));
+        return view('products.index',['brands'=>$brands,'categories'=>$categories]);
     }
 
     public function store()

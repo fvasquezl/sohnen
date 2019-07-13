@@ -89,9 +89,9 @@ function myAjax(url,method,data=''){
 }
 
 
-function getRowData(id,column=''){
+function getRowData(id,column='',$location= window.location.pathname){
 
-    let location = window.location.origin + window.location.pathname;
+    let location = window.location.origin + $location;
     let url =location+`/${id}`;
 
     if (column){

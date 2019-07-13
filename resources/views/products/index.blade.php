@@ -83,7 +83,7 @@
                 scrollX: true,
                 select:true,
                 fixedColumns:   {
-                    leftColumns: 3
+                    leftColumns: 4
                 },
                 dom: '"<\'row\'<\'col-md-6\'B><\'col-md-6\'f>>" +\n' +
                     '"<\'row\'<\'col-sm-12\'tr>>" +\n' +

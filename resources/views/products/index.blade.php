@@ -201,21 +201,14 @@
                         form.attr("action","/products/"+rowId)
                         .attr('method','PUT');
 
+                    $(form).trigger("reset");
+
                     let product = getRowData(rowId);
                     let category = getRowData(product.CategoryID,'','/category');
 
                     $(this).find(".modal-title").html("Update Product "+product.SKU);
 
-                    form.each(function () {
-                        $(this).find(':input').val(function(index, value){
-                            return product[this.id]
-                        });
-
-                        $(this).find('label').text(function(index, value){
-                            return category[this.id];
-                        });
-                    });
-
+                    displayLabels(form,product,category);
 
                 }).modal('show');
             });
@@ -233,9 +226,25 @@
                 e.preventDefault();
                 let url = $(this).attr('action');
                 let method = $(this).attr('method');
-                saveInfo(url,method,this)
+                saveInfo(url,method,this);
                 $productsTable.draw();
             });
+
+            $('#CategoryID').on('change',function () {
+
+                let form=$(this).closest("form");
+
+                let category = getRowData($(this).val(),'','/category');
+
+                form.find('label').text(function(index, value){
+                    if(category[this.id] === null){
+                        $('#'+$(this).attr('for')).val('').hide();
+                    }else{
+                        $('#'+$(this).attr('for')).show();
+                    }
+                    return category[this.id];
+                });
+            })
         });
 
     </script>

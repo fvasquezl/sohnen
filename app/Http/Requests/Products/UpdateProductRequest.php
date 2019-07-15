@@ -57,16 +57,17 @@ class UpdateProductRequest extends FormRequest
 
         $attribute = Attribute::where('SKU',$product->SKU)->firstOrFail();
         $attribute->CategoryID = $this->CategoryID;
-        $attribute->Attribute01 = $this->Attribute01;
-        $attribute->Attribute02 = $this->Attribute02;
-        $attribute->Attribute03 = $this->Attribute03;
-        $attribute->Attribute04 = $this->Attribute04;
-        $attribute->Attribute05 = $this->Attribute05;
-        $attribute->Attribute06 = $this->Attribute06;
-        $attribute->Attribute07 = $this->Attribute07;
-        $attribute->Attribute08 = $this->Attribute08;
-        $attribute->Attribute09 = $this->Attribute09;
-        $attribute->Attribute10 = $this->Attribute10;
+
+        $attribute->Attribute01 = $this->Attribute01 ? $this->Attribute01 : '';
+        $attribute->Attribute02 = $this->Attribute02 ? $this->Attribute02 : '';
+        $attribute->Attribute03 = $this->Attribute03 ? $this->Attribute03 : '';
+        $attribute->Attribute04 = $this->Attribute04 ? $this->Attribute04 : '';
+        $attribute->Attribute05 = $this->Attribute05 ? $this->Attribute05 : '';
+        $attribute->Attribute06 = $this->Attribute06 ? $this->Attribute06 : '';
+        $attribute->Attribute07 = $this->Attribute07 ? $this->Attribute07 : '';
+        $attribute->Attribute08 = $this->Attribute08 ? $this->Attribute08 : '';
+        $attribute->Attribute09 = $this->Attribute09 ? $this->Attribute09 : '';
+        $attribute->Attribute10 = $this->Attribute10 ? $this->Attribute10 : '';
         $attribute->save();
 
     }

@@ -108,3 +108,24 @@ function RemoveErrorsFields(form){
     });
 }
 
+function displayLabels(form,product,category) {
+
+    form.each(function () {
+        $(this).find(':input').val(function(index, value){
+            return product[this.id]
+        });
+
+        $(this).find('label').text(function(index, value){
+            if(category[this.id] === null){
+                $('#'+$(this).attr('for')).val('').hide();
+            }else{
+                $('#'+$(this).attr('for')).show();
+            }
+            return category[this.id];
+        });
+    });
+}
+
+
+
+

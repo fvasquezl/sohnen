@@ -14,6 +14,7 @@ class AttributesController extends Controller
     public function show(Attribute $attribute)
     {
         $category = $attribute->category()->get()->toArray()[0];
+
         $data = ['Category' => $category['CategoryName']];
         $keys = $this->filterElements($category, 2, 10);
 

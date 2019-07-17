@@ -19,6 +19,6 @@ class Category extends Model
 
     public function attributes()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(Attribute::class);
     }
 }

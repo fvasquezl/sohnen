@@ -16,4 +16,9 @@ class Category extends Model
     {
         return $this->hasOne(Product::class);
     }
+
+    public function attributes()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

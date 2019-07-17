@@ -10,4 +10,11 @@ class Attribute extends Model
     protected $primaryKey = 'ID';
     public $timestamps = false;
     protected $guarded = [];
+
+
+    public function category()
+    {
+        return $this->hasMany(Category::class,'CategoryID');
+    }
+
 }

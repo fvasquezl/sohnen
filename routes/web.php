@@ -18,6 +18,11 @@ Route::get('/', function () {
 
 Route::get('/category/{category}','CategoryController@show');
 
+
+Route::get('/getAttribute/{sku}','AttributesController@Index');
+Route::get('/attributes/{attribute}','AttributesController@show');
+
+
 Route::apiResource('products','ProductsController');
 
 Route::apiResource('users','UsersController');

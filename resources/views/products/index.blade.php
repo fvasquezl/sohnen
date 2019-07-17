@@ -13,9 +13,10 @@
 
             @include('products.shared.searchForm',$brands)
 
-            <table class="table table-striped table-bordered table-hover nowrap DataTable" role="grid" id="productsTable">
+            <table class="table table-striped table-bordered table-hover nowrap"  id="productsTable">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>SKU</th>
                     <th>Brand</th>
                     <th>Model</th>
@@ -46,6 +47,16 @@
 @push('styles')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.bootstrap4.min.css"/>
+    <style>
+        td.details-control {
+            background: url('img/details_open.png') no-repeat center center;
+            cursor:pointer;
+        }
+
+        tr.shown td.details-control {
+            background: url('img/details_close.png') no-repeat center center;
+        }
+    </style>
 @endpush
 
 @push('scripts')
@@ -68,6 +79,16 @@
 
         let $productsTable;
 
+        function format(d){
+
+            let result = '';
+            $.map(d,function(value,index) {
+                result += `<tr><td><strong>`+index+'</strong></td><td>'+value+`</td></tr>`;
+            });
+
+           return `<table id="map">`+result+`</table>`;
+        }
+
 
         $(function () {
             $.ajaxSetup({
@@ -82,9 +103,9 @@
                 scrollY: "53vh",
                 scrollX: true,
                 select:true,
-                fixedColumns:   {
-                    leftColumns: 4
-                },
+                // fixedColumns:   {
+                //     leftColumns: 4
+                // },
                 dom: '"<\'row\'<\'col-md-6\'B><\'col-md-6\'f>>" +\n' +
                     '"<\'row\'<\'col-sm-12\'tr>>" +\n' +
                     '"<\'row\'<\'col-sm-12 col-md-5\'i ><\'col-sm-12 col-md-7\'p>>"',
@@ -130,6 +151,7 @@
                     },
                 },
                 columns: [
+                    {},
                     {data: "SKU"},
                     {data: "Brand"},
                     {data: "Model"},
@@ -151,20 +173,44 @@
                     {data: 'Action', name: 'Action', orderable: false, searchable: false},
                 ],
                 columnDefs: [
-                    {targets: 3,width: 300},
-                    {targets: 2, width: 100},
                     {
-                        targets: [4, 5, 7, 9, 11, 13],
+                        targets: 0,
+                        className:'details-control',
+                        orderable:false,
+                        data:null,
+                        defaultContent: ''
+                    },
+                    {targets: 4,width: 300},
+                    {targets: 3, width: 100},
+                    {
+                        targets: [5, 6, 8, 10, 12, 14],
                         className: "text-right",
                         render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
                     },
                     {
-                        targets: [6, 8, 10, 12, 14, 15, 16, 17],
+                        targets: [7, 9, 11, 13, 15, 16, 17, 18],
                         className: "text-center"
                     }
-
                 ]
             });
+
+            $('#productsTable tbody').on('click', 'td.details-control', function () {
+                let tr = $(this).closest('tr');
+                let row = $productsTable.row( tr );
+                let attributes = getRowData(row.data().SKU,'','/getAttribute');
+                let data = getRowData(attributes[0].ID,'','/attributes');
+
+
+                if ( row.child.isShown() ) {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    row.child( format(data) ).show();
+                    tr.addClass('shown');
+                }
+            } );
+
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
                 $($.fn.dataTable.tables(true)).DataTable()

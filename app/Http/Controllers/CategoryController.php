@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Attribute;
 use App\Category;
 
 
@@ -11,4 +12,5 @@ class CategoryController extends Controller
     {
         return $category;
     }
+
 }

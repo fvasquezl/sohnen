@@ -174,6 +174,7 @@
                 ],
                 columnDefs: [
                     {
+                        searchable:false,
                         targets: 0,
                         className:'details-control',
                         orderable:false,

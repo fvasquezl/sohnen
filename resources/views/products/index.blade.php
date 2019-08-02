@@ -152,6 +152,7 @@
                     url: '{!! route('products.index') !!}',
                     data: function (d) {
                         d.brand = $('select[name=brand]').val();
+                        d.hasInventory = $('#hasInventory').val();
                     },
                 },
                 columns: [
@@ -305,7 +306,6 @@
                 });
             });
 
-
             $(document).on('click','.quote-btn',function(e){
                 e.stopPropagation();
 
@@ -313,7 +313,7 @@
                 let rowId = $tr.attr('id');
 
                 if(!percentOfRetail){
-                   return alert('falla');
+                    Swal.fire('Failed!', "There are not customer session", "warning");
                 }else{
                     $('#ajaxQuoteModal').on('shown.bs.modal', function(){
                         let product = getRowData(rowId);
@@ -344,9 +344,7 @@
 
                     }).modal('show');
                 }
-
             });
-
         });
 
 

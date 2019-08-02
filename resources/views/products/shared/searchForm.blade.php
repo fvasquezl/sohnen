@@ -7,6 +7,15 @@
                 <option value="{{$brand}}">{{$brand}}</option>
                 @endforeach
             </select>
+    </div>
+    <div class="form-check ml-3">
+        <div class="icheck-primary">
+            <input type="checkbox" class="custom-checkbox" name="hasInventory" id="hasInventory" value="false">
+            <label for="hasInventory">
+                Has Inventory
+            </label>
         </div>
+    </div>
+
     <button type="submit" class="btn btn-primary ml-2">Submit</button>
 </form>

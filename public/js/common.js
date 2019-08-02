@@ -126,6 +126,10 @@ function displayLabels(form,product,category) {
     });
 }
 
+$(document).on('change','.custom-checkbox',function() {
+    $(this).attr('value', this.checked);
+});
+
 
 
 

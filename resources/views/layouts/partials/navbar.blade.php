@@ -109,7 +109,7 @@
 
         $("#customer-name").text(result.CustomerName);
         $("#retail").text(result.PercentOfRetail);
-
+        location.reload();
     });
     $("#closeCustomerForm").on('submit',function(e){
         e.preventDefault();
@@ -117,6 +117,7 @@
         let url = $(this).attr('action');
         let method = $(this).attr('method');
         myAjax(url,method);
+        location.reload();
     });
 
     </script>

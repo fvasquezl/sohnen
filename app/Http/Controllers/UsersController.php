@@ -12,33 +12,28 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function index(Request $request)
     {
 
-        if ($request->ajax()) {
-
+        if($request->ajax()){
             $data = User::query();
 
-            return Datatables::of($data)->filter(function($query) use($request) {
-                if($brand = $request->brand){
-                    $query->where('Brand',$brand);
-                }
-            },true)
-                ->addIndexColumn()
-                ->editColumn('name', '<a href="#" class="update-btn">{{$name}}</a>')
-                ->addColumn('Action', function($row){
+            return Datatables::of($data)
+                ->setRowId(function ($user) {
+                    return $user->Id;
+                })->addColumn('Action', function($data){
                     $btns = '<a href="#" class="btn btn-primary btn-sm update-btn"><i class="fas fa-pencil-alt"></i></a>
                              <a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';
                     return $btns;
-                })
-                ->rawColumns(['name','Action'])
-                ->setRowId(function ($data) {
-                    return $data->ID;
-                })
-                ->make(true);
+                })->rawColumns(['Action'])->make(true);
+
         }
+      //  $users = User::all();
+
         return view('users.index',compact('users'));
     }
 

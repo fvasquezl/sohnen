@@ -17,6 +17,7 @@
                 <thead>
                 <tr>
                     <th></th>
+                    <th>To Cust</th>
                     <th>SKU</th>
                     <th>Brand</th>
                     <th>Model</th>
@@ -42,6 +43,7 @@
         </div>
     </div>
         @include('products.shared.modal',$categories)
+        @include('products.shared.modalQuote')
 @endsection
 
 @push('styles')
@@ -79,6 +81,9 @@
 
         let $productsTable;
 
+        let customerName = "{{Session::get('CustomerName')}}";
+        let percentOfRetail = "{{Session::get('PercentOfRetail')}}"
+
         function format(d){
 
             let result = '';
@@ -98,7 +103,9 @@
             });
             $productsTable = $('#productsTable').DataTable({
                 pageLength: 25,
+                lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'All']],
                 processing: true,
+                stateSave: true,
                 serverSide:true,
                 scrollY: "53vh",
                 scrollX: true,
@@ -131,15 +138,12 @@
                             init: function(api, node, config) {
                                 $(node).removeClass('btn-secondary buttons-html5 buttons-excel')
                             },
-                            columns: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+                            columns: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
                         },
                         {
                             extend: 'pageLength',
                             titleAttr: 'Show Records',
                             className: 'btn selectTable btn-primary',
-                            init: function(api, node, config) {
-                                $(node).removeClass('btn-secondary buttons-html5')
-                            }
                         }
                     ],
                 },
@@ -152,6 +156,7 @@
                 },
                 columns: [
                     {},
+                    {data:"toCustomer"},
                     {data: "SKU"},
                     {data: "Brand"},
                     {data: "Model"},
@@ -181,15 +186,22 @@
                         data:null,
                         defaultContent: ''
                     },
+                    {
+                        searchable:false,
+                        targets: 1,
+                        orderable:false,
+                        data:null,
+                        defaultContent: ''
+                    },
                     {targets: 4,width: 300},
                     {targets: 3, width: 100},
                     {
-                        targets: [5, 6, 8, 10, 12, 14],
+                        targets: [6, 7, 9, 11, 13, 15],
                         className: "text-right",
                         render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
                     },
                     {
-                        targets: [7, 9, 11, 13, 15, 16, 17, 18],
+                        targets: [8, 10, 12, 14, 16, 17, 18, 19],
                         className: "text-center"
                     }
                 ]
@@ -291,8 +303,52 @@
                     }
                     return category[this.id];
                 });
-            })
+            });
+
+
+            $(document).on('click','.quote-btn',function(e){
+                e.stopPropagation();
+
+                let $tr = $(this).closest('tr');
+                let rowId = $tr.attr('id');
+
+                if(!percentOfRetail){
+                   return alert('falla');
+                }else{
+                    $('#ajaxQuoteModal').on('shown.bs.modal', function(){
+                        let product = getRowData(rowId);
+                        let form = $('#productQuoteForm');
+
+                        form.attr("action","/productQuote/")
+                            .attr('method','POST');
+                        $(form).trigger("reset");
+
+                        form.find("input[name='SKU']").val(product.SKU);
+                        form.find("input[name='Qty']").val('1');
+                        form.find('#Condition').on('change',function(){
+                            if($(this).val() === 'New'){
+                                form.find("input[name='SalePrice']").val( product.SalePriceNew);
+                            }else if($(this).val() === 'B'){
+                                form.find("input[name='SalePrice']").val(product.SalePriceGradeB);
+                            }else if($(this).val() === 'C'){
+                                form.find("input[name='SalePrice']").val(product.SalePriceGradeC);
+                            }else if($(this).val() === 'X'){
+                                form.find("input[name='SalePrice']").val(product.SalePriceGradeX);
+                            }
+                        });
+
+                        form.find("input[name='PercentOfRetail']").val(percentOfRetail);
+
+                        $(this).find(".modal-title").html("Quote Product "+product.SKU);
+
+
+                    }).modal('show');
+                }
+
+            });
+
         });
+
 
     </script>
 @endpush

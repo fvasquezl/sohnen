@@ -26,4 +26,10 @@ Route::get('/attributes/{attribute}','AttributesController@show');
 Route::apiResource('products','ProductsController');
 
 Route::apiResource('users','UsersController');
+
+Route::post('/customers/saveMemory','CustomersController@saveMemory')->name('customers.saveMemory');
+Route::post('/customers/removeMemory','CustomersController@removeMemory')->name('customers.removeMemory');
+
+Route::post('/customers','CustomersController@store')->name('customers.store');
+
 Auth::routes();

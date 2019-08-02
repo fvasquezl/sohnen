@@ -45,7 +45,10 @@ class ProductsController extends Controller
                             }
                         },true)
                 ->addIndexColumn()
-
+//                ->editColumn('SKU', '<a href="#" class="update-btn">{{$SKU}}</a>')
+                ->addColumn('toCustomer',function($data){
+                    return '<a href="#" class="btn btn-warning btn-sm btn-block quote-btn"><i class="fas fa-plus-square"></i></a>';
+                })
                 ->addColumn('TotalStock',function($data){
                     return $data->QtyNew +$data->QtyGradeB+$data->QtyGradeC+$data->QtyGradeX;
                 })
@@ -54,13 +57,18 @@ class ProductsController extends Controller
                              <a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';
                     return $btns;
                 })
-                ->rawColumns(['Action'])
+                ->rawColumns(['Action','toCustomer','TotalStock','SKU'])
                 ->setRowId(function ($data) {
                     return $data->ID;
                 })
                 ->make(true);
         }
-        return view('products.index',['brands'=>$brands,'categories'=>$categories]);
+        return view('products.index',[
+            'brands'=>$brands,
+            'categories'=>$categories,
+            'customerName' => session('CustomerName'),
+            'percentOfRetail' => session('PercentOfRetail'),
+        ]);
     }
 
     public function store()

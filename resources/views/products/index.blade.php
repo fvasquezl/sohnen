@@ -11,12 +11,13 @@
                 </div>
             @endif
 
-            @include('products.shared.searchForm',$brands)
+            @include('products.shared.searchForm',[$brands,$categories])
 
             <table class="table table-striped table-bordered table-hover nowrap"  id="productsTable">
                 <thead>
                 <tr>
                     <th></th>
+                    <th>Action</th>
                     <th>To Cust</th>
                     <th>SKU</th>
                     <th>Brand</th>
@@ -36,7 +37,6 @@
                     <th>TotalStock</th>
                     <th>TQtyPurchased</th>
                     <th>FirstPurchaseDate</th>
-                    <th width="100px">Action</th>
                 </tr>
                 </thead>
             </table>
@@ -152,11 +152,13 @@
                     url: '{!! route('products.index') !!}',
                     data: function (d) {
                         d.brand = $('select[name=brand]').val();
+                        d.category = $('select[name=category]').val();
                         d.hasInventory = $('#hasInventory').val();
                     },
                 },
                 columns: [
                     {},
+                    {data: 'Action'},
                     {data:"toCustomer"},
                     {data: "SKU"},
                     {data: "Brand"},
@@ -176,7 +178,7 @@
                     {data: "TotalStock"},
                     {data: "TotalQtyPurchased"},
                     {data: "FirstPurchaseDate"},
-                    {data: 'Action', name: 'Action', orderable: false, searchable: false},
+
                 ],
                 columnDefs: [
                     {
@@ -188,21 +190,26 @@
                         defaultContent: ''
                     },
                     {
+                        name: 'Action',
                         searchable:false,
                         targets: 1,
                         orderable:false,
-                        data:null,
-                        defaultContent: ''
                     },
-                    {targets: 4,width: 300},
-                    {targets: 3, width: 100},
                     {
-                        targets: [6, 7, 9, 11, 13, 15],
+                        name: 'toCustomer',
+                        searchable:false,
+                        targets: 2,
+                        orderable:false,
+                    },
+
+                    {targets: 6,width: 300},
+                    {
+                        targets: [7, 8, 10, 12, 14, 16],
                         className: "text-right",
                         render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
                     },
                     {
-                        targets: [8, 10, 12, 14, 16, 17, 18, 19],
+                        targets: [9, 11, 13, 15, 17, 18, 19, 20],
                         className: "text-center"
                     }
                 ]

@@ -43,15 +43,19 @@ class ProductsController extends Controller
                             if($brand = $request->brand){
                                 $query->where('Brand',$brand);
                             }
+                            if($category = $request->category){
+                                $query->where('CategoryID',$category);
+                            }
                             if($hasInventory = $request->hasInventory == 'true'){
-                                $query->where('QtyNew','>',0)
-                                ->orWhere('QtyGradeB','>',0)
-                                ->orWhere('QtyGradeC','>',0)
-                                ->orWhere('QtyGradeX','>',0);
+                                $query->where(function($q){
+                                    $q->where('QtyNew','>',0)
+                                        ->orWhere('QtyGradeB','>',0)
+                                        ->orWhere('QtyGradeC','>',0)
+                                        ->orWhere('QtyGradeX','>',0);
+                                });
                             }
                         },true)
                 ->addIndexColumn()
-//                ->editColumn('SKU', '<a href="#" class="update-btn">{{$SKU}}</a>')
                 ->addColumn('toCustomer',function($data){
                     return '<a href="#" class="btn btn-info btn-sm btn-block quote-btn"><i class="fas fa-plus-square"></i></a>';
                 })

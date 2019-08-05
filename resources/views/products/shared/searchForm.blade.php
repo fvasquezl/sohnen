@@ -8,6 +8,15 @@
                 @endforeach
             </select>
     </div>
+    <div class="form-group ml-3">
+        <label class="sr-only" for="category">Category</label>
+        <select class="form-control" name="category" id="category">
+            <option value="">-- Category --</option>
+            @foreach($categories as $category)
+                <option value="{{$category['CategoryID']}}">{{$category['CategoryName']}}</option>
+            @endforeach
+        </select>
+    </div>
     <div class="form-check ml-3">
         <div class="icheck-primary">
             <input type="checkbox" class="custom-checkbox" name="hasInventory" id="hasInventory" value="false">

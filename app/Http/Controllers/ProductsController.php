@@ -57,7 +57,7 @@ class ProductsController extends Controller
                         },true)
                 ->addIndexColumn()
                 ->addColumn('toCustomer',function($data){
-                    return '<a href="#" class="btn btn-info btn-sm btn-block quote-btn"><i class="fas fa-plus-square"></i></a>';
+                    return '<a href="#" class="btn btn-info btn-sm btn-block quote-btn"><i class="fas fa-check-double"></i></a>';
                 })
                 ->addColumn('TotalStock',function($data){
                     return $data->QtyNew +$data->QtyGradeB+$data->QtyGradeC+$data->QtyGradeX;

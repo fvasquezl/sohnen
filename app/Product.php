@@ -15,4 +15,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class,'CategoryID');
     }
+
+    public function quotations()
+    {
+        return $this->hasMany(Quotation::class,'UserID');
+    }
 }

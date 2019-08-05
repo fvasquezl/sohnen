@@ -1,4 +1,4 @@
-function saveInfo(url,method,form){
+function saveInfo(url,method,form,modal){
     let request = $.ajax({
         url: url,
         type: method,
@@ -6,7 +6,7 @@ function saveInfo(url,method,form){
         data: $(form).serialize(),
     });
     request.done(function(data) {
-        $('#ajaxModal').modal('toggle');
+        $(modal).modal('toggle');
         Swal.fire({
             position: 'top-end',
             type: 'success',
@@ -40,7 +40,7 @@ function saveInfo(url,method,form){
 }
 
 
-function deleteInfo(url) {
+function deleteInfo(url,table='') {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -57,6 +57,8 @@ function deleteInfo(url) {
                 dataType: 'json',
             });
             request.done(function (data) {
+
+
                 Swal.fire(
                     'Deleted!',
                     data.message,
@@ -68,6 +70,7 @@ function deleteInfo(url) {
             });
         }
     });
+    return true;
 }
 
 function myAjax(url,method,data=''){

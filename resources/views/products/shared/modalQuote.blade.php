@@ -54,13 +54,15 @@
                                    id="SalePrice"
                                    name="SalePrice"
                                    placeholder="SalePrice"
-                                   min="0">
+                                   min="0"
+                                   step=".01">
                             <span class="invalid-feedback" role="alert"><strong></strong></span>
                         </div>
+                    <input id="CustomerName" name="CustomerName" type="hidden" value="{{Session::get('CustomerName')}}">
                     </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save Quote</button>
                 </div>
             </form>
         </div>

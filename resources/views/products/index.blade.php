@@ -82,7 +82,7 @@
         let $productsTable;
 
         let customerName = "{{Session::get('CustomerName')}}";
-        let percentOfRetail = "{{Session::get('PercentOfRetail')}}"
+        let percentOfRetail = "{{Session::get('PercentOfRetail')}}";
 
         function format(d){
 
@@ -293,7 +293,7 @@
                 e.preventDefault();
                 let url = $(this).attr('action');
                 let method = $(this).attr('method');
-                saveInfo(url,method,this);
+                saveInfo(url,method,this,'#ajaxModal');
                 $productsTable.draw();
             });
 
@@ -326,7 +326,7 @@
                         let product = getRowData(rowId);
                         let form = $('#productQuoteForm');
 
-                        form.attr("action","/productQuote/")
+                        form.attr("action","/quotations")
                             .attr('method','POST');
                         $(form).trigger("reset");
 
@@ -348,10 +348,17 @@
 
                         $(this).find(".modal-title").html("Quote Product "+product.SKU);
 
-
                     }).modal('show');
                 }
             });
+
+            $('#productQuoteForm').on('submit',function(e){
+                e.preventDefault();
+                let url = $(this).attr('action');
+                let method = $(this).attr('method');
+                saveInfo(url,method,this,'#ajaxQuoteModal');
+            });
+
         });
 
 

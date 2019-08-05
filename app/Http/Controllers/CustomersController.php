@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
@@ -41,8 +42,4 @@ class CustomersController extends Controller
         ], 200);
     }
 
-    public function store(Request $request)
-    {
-
-    }
 }

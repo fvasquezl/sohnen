@@ -30,6 +30,8 @@ Route::apiResource('users','UsersController');
 Route::post('/customers/saveMemory','CustomersController@saveMemory')->name('customers.saveMemory');
 Route::post('/customers/removeMemory','CustomersController@removeMemory')->name('customers.removeMemory');
 
-Route::post('/customers','CustomersController@store')->name('customers.store');
+Route::get('/quotations','QuotationsController@index')->name('quotations.index');
+Route::post('/quotations','QuotationsController@store')->name('quotations.store');
+Route::delete('/quotations/{quotation}','QuotationsController@destroy')->name('quotations.destroy');
 
 Auth::routes();

@@ -48,6 +48,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('quotations.index')}}"  class="{{(request()->is('quotations') ? 'nav-link active' : 'nav-link')}}" >
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Quotations
+                        </p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"

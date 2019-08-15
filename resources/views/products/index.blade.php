@@ -1,45 +1,48 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="card mt-4">
-        <div class="card-header">Product Catalog</div>
+    <div class="col-lg-12 my-3">
+        <div class="card card-outline card-info">
 
-        <div class="card-body">
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
+            <div class="card-body">
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
-            @include('products.shared.searchForm',[$brands,$categories])
+                @include('products.shared.searchForm',[$brands,$categories])
 
-            <table class="table table-striped table-bordered table-hover nowrap"  id="productsTable">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Action</th>
-                    <th>To Cust</th>
-                    <th>SKU</th>
-                    <th>Brand</th>
-                    <th>Model</th>
-                    <th>Description</th>
-                    <th>EstimatedRetail</th>
-                    <th>AvgCost</th>
-                    <th>QtyNew</th>
-                    <th>SalePriceNew</th>
-                    <th>QtyB</th>
-                    <th>SalePriceB</th>
-                    <th>QtyC</th>
-                    <th>SalePriceC</th>
-                    <th>QtyX</th>
-                    <th>SalePriceX</th>
-                    <th>AddedDate</th>
-                    <th>TotalStock</th>
-                    <th>TQtyPurchased</th>
-                    <th>FirstPurchaseDate</th>
-                </tr>
-                </thead>
-            </table>
+                <hr>
+
+                <table class="table table-striped table-bordered table-hover nowrap"  id="productsTable">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Action</th>
+                        <th>To Cust</th>
+                        <th>SKU</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Description</th>
+                        <th>EstimatedRetail</th>
+                        <th>AvgCost</th>
+                        <th>QtyNew</th>
+                        <th>SalePriceNew</th>
+                        <th>QtyB</th>
+                        <th>SalePriceB</th>
+                        <th>QtyC</th>
+                        <th>SalePriceC</th>
+                        <th>QtyX</th>
+                        <th>SalePriceX</th>
+                        <th>AddedDate</th>
+                        <th>TotalStock</th>
+                        <th>TQtyPurchased</th>
+                        <th>FirstPurchaseDate</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
         @include('products.shared.modal',$categories)

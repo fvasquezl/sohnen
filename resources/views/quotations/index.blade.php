@@ -1,33 +1,34 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="card mt-4">
-        <div class="card-header">Quotations</div>
+    <div class="col-lg-12 my-3">
+        <div class="card card-outline card-info">
 
-        <div class="card-body">
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
+            <div class="card-body">
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
-{{--            @include('products.shared.searchForm',[$brands,$categories])--}}
+                {{-- @include('products.shared.searchForm',[$brands,$categories])--}}
 
-            <table class="table table-striped table-bordered table-hover nowrap" id="quotationsTable">
-                <thead>
-                <tr>
-                    <th>SKU</th>
-                    <th>Qty</th>
-                    <th>Condition</th>
-                    <th>PercentOfRetail</th>
-                    <th>SalePrice</th>
-                    <th>UserID</th>
-                    <th>DateAdded</th>
-                    <th>CustomerName</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-            </table>
+                <table class="table table-striped table-bordered table-hover nowrap" id="quotationsTable">
+                    <thead>
+                    <tr>
+                        <th>SKU</th>
+                        <th>Qty</th>
+                        <th>Condition</th>
+                        <th>PercentOfRetail</th>
+                        <th>SalePrice</th>
+                        <th>UserID</th>
+                        <th>DateAdded</th>
+                        <th>CustomerName</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 {{--    @include('products.shared.modal',$categories)--}}
@@ -84,11 +85,9 @@
                 processing: true,
                 stateSave: true,
                 serverSide:true,
-                autoWidth: true,
                 scrollY: "53vh",
-                scrollX: true,
                 dom: '"<\'row\'<\'col-md-6\'B><\'col-md-6\'f>>" +\n' +
-                    '"<\'row\'<\'col-md-12\'tr>>" +\n' +
+                    '"<\'row\'<\'col-sm-12\'tr>>" +\n' +
                     '"<\'row\'<\'col-md-12 col-md-5\'i ><\'col-md-12 col-md-7\'p>>"',
 
                 buttons: {
@@ -193,7 +192,6 @@
             });
 
         });
-
 
     </script>
 @endpush

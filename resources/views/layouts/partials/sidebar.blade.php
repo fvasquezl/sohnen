@@ -42,7 +42,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('products.index')}}"  class="{{(request()->is('products') ? 'nav-link active' : 'nav-link')}}" >
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="fas fa-box-open"></i>
                         <p>
                             Product Catalog
                         </p>
@@ -50,13 +50,20 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{route('quotations.index')}}"  class="{{(request()->is('quotations') ? 'nav-link active' : 'nav-link')}}" >
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="fas fa-file-signature"></i>
                         <p>
                             Quotations
                         </p>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="{{route('purchase.index')}}"  class="{{(request()->is('purchase') ? 'nav-link active' : 'nav-link')}}" >
+                        <i class="fas fa-shopping-basket"></i>
+                        <p>
+                            Purchase History
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
                        onclick="event.preventDefault();

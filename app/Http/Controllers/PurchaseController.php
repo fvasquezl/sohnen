@@ -11,12 +11,26 @@ class PurchaseController extends Controller
 
     public function index(Request $request)
     {
-        $btsLoadId = Purchase::groupBy('BTSLoadID')->pluck('BTSLoadID');
+        $btsLoadIds = Purchase::groupBy('BTSLoadID')->pluck('BTSLoadID');
+        $loadDates = Purchase::groupBy('LoadDate')->pluck('LoadDate');
 
         if ($request->ajax()) {
 
-            $data = Purchase::with('category')
-                ->select('ID','BTSSKU','Brand','ScreenSize','MFGSKU','ItemDescription','Qty','EstimatedRetail','Price','BTSLoadID','SohnenLoadID','LoadDate','AddedDate');
+            $data = Purchase::leftjoin('categories', 'purchases.BTSCategoryID', '=', 'categories.CategoryID')
+                ->select('Purchases.ID',
+                    'purchases.BTSSKU',
+                    'purchases.Brand',
+                    'purchases.ScreenSize',
+                    'purchases.MFGSKU',
+                    'purchases.ItemDescription',
+                    'purchases.Qty',
+                    'purchases.EstimatedRetail',
+                    'purchases.Price',
+                    'purchases.BTSLoadID',
+                    'purchases.SohnenLoadID',
+                    'purchases.LoadDate',
+                    'purchases.AddedDate',
+                    'categories.CategoryName');
 
             return Datatables::of($data)->filter(function($query) use($request){
                 if($loadDate = $request->loadDate){
@@ -32,7 +46,8 @@ class PurchaseController extends Controller
         }
 
         return view('purchase.index', [
-            'btsLoadIds' => $btsLoadId
+            'btsLoadIds' => $btsLoadIds,
+            'loadDates' => $loadDates
         ]);
     }
 }

@@ -1,11 +1,13 @@
 <form class="form-inline mb-3" id="dateForm">
     <div class="form-group">
-        <label for="datePicker">LoadDate: </label>
-        <div class="input-group date " id="datePicker" data-target-input="nearest">
-            <input type="text" class="form-control datetimepicker-input" id="loadDate" data-target="#datePicker"/>
-            <div class="input-group-append" data-target="#datePicker" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-            </div>
+        <div class="col-auto">
+            <label class="sr-only" for="loadDate">LoadDate</label>
+            <select class="form-control myselect2" name="loadDate" id="loadDate">
+                <option value="">-- Select Load Date --</option>
+                @foreach($loadDates as $loadDate)
+                    <option value="{{$loadDate}}">{{$loadDate}}</option>
+                @endforeach
+            </select>
         </div>
     </div>
     <div class="form-group">

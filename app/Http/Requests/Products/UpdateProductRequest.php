@@ -53,6 +53,7 @@ class UpdateProductRequest extends FormRequest
         $inventory->QtyGradeB = $this->QtyGradeB;
         $inventory->QtyGradeC = $this->QtyGradeC;
         $inventory->QtyGradeX = $this->QtyGradeX;
+        $inventory->QtyPending = $this->QtyPending;
         $inventory->save();
 
         $attribute = Attribute::where('SKU',$product->SKU)->firstOrFail();

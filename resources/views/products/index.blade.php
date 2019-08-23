@@ -35,6 +35,7 @@
                         <th>SalePriceC</th>
                         <th>QtyX</th>
                         <th>SalePriceX</th>
+                        <th>QtyPending</th>
                         <th>AddedDate</th>
                         <th>TotalStock</th>
                         <th>TQtyPurchased</th>
@@ -113,9 +114,6 @@
                 scrollY: "53vh",
                 scrollX: true,
                 select:true,
-                // fixedColumns:   {
-                //     leftColumns: 4
-                // },
                 dom: '"<\'row\'<\'col-md-6\'B><\'col-md-6\'f>>" +\n' +
                     '"<\'row\'<\'col-sm-12\'tr>>" +\n' +
                     '"<\'row\'<\'col-sm-12 col-md-5\'i ><\'col-sm-12 col-md-7\'p>>"',
@@ -177,6 +175,7 @@
                     {data: "SalePriceGradeC"},
                     {data: "QtyGradeX"},
                     {data: "SalePriceGradeX"},
+                    {data: "QtyPending"},
                     {data: "AddedDate"},
                     {data: "TotalStock"},
                     {data: "TotalQtyPurchased"},
@@ -212,7 +211,7 @@
                         render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
                     },
                     {
-                        targets: [9, 11, 13, 15, 17, 18, 19, 20],
+                        targets: [9, 11, 13, 15,17, 18, 19, 20, 21],
                         className: "text-center"
                     }
                 ]
@@ -223,7 +222,6 @@
                 let row = $productsTable.row( tr );
                 let attributes = getRowData(row.data().SKU,'','/getAttribute');
                 let data = getRowData(attributes[0].ID,'','/attributes');
-
 
                 if ( row.child.isShown() ) {
                     row.child.hide();
@@ -274,6 +272,7 @@
                     $(form).trigger("reset");
 
                     let product = getRowData(rowId);
+                    console.log(product);
                     let category = getRowData(product.CategoryID,'','/category');
 
                     $(this).find(".modal-title").html("Update Product "+product.SKU);
@@ -337,7 +336,7 @@
                         form.find("input[name='Qty']").val('1');
                         form.find('#Condition').on('change',function(){
                             if($(this).val() === 'New'){
-                                form.find("input[name='SalePrice']").val( product.SalePriceNew);
+                                form.find("input[name='SalePrice']").val(product.SalePriceNew);
                             }else if($(this).val() === 'B'){
                                 form.find("input[name='SalePrice']").val(product.SalePriceGradeB);
                             }else if($(this).val() === 'C'){

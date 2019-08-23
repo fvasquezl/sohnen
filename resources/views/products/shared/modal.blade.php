@@ -7,7 +7,7 @@
             <form id="productForm" name="productForm">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group mt-2">
                                 <label for="QtyNew">QtyNew</label>
                                 <input type="number"
@@ -19,7 +19,21 @@
                                 <span class="invalid-feedback" role="alert"><strong></strong></span>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
+                            <div class="form-group mt-2">
+                                <label for="QtyPending">QtyPending</label>
+                                <input type="number"
+                                       class="form-control"
+                                       id="QtyPending"
+                                       name="QtyPending"
+                                       placeholder="QtyPending"
+                                       min="0">
+                                <span class="invalid-feedback" role="alert"><strong></strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
                             <div class="form-group mt-2">
                                 <label for="QtyGradeB">QtyB</label>
                                 <input type="number"
@@ -31,7 +45,7 @@
                                 <span class="invalid-feedback" role="alert"><strong></strong></span>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group mt-2">
                                 <label for="QtyGradeC">QtyC</label>
                                 <input type="number"
@@ -43,7 +57,7 @@
                                 <span class="invalid-feedback" role="alert"><strong></strong></span>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group mt-2">
                                 <label for="QtyGradeX">QtyX</label>
                                 <input type="number"
@@ -207,7 +221,6 @@
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

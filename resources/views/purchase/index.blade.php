@@ -14,8 +14,9 @@
                         <th>ScreenSize</th>
                         <th>MFGSKU</th>
                         <th>ItemDescription</th>
-{{--                        <th>CategoryName</th>--}}
+                        <th>CategoryName</th>
                         <th>Qty</th>
+{{--                        <th>QtyPending</th>--}}
                         <th>EstimatedRetail</th>
                         <th>Price</th>
                         <th>BTSLoadID</th>
@@ -121,32 +122,32 @@
                     }
                 },
                 columns: [
-                    {data:"ID"},
-                    {data:"BTSSKU"},
-                    {data:"Brand"},
-                    {data:"ScreenSize"},
-                    {data:"MFGSKU"},
-                    {data:"ItemDescription"},
-                    // {data:"CategoryName"},
-                    {data:"Qty"},
-                    {data:"EstimatedRetail"},
-                    {data:"Price"},
-                    {data:"BTSLoadID"},
-                    {data:"SohnenLoadID"},
-                    {data:"LoadDate"},
-                    {data:"AddedDate"},
+                    {data:"ID",name:'ID'},
+                    {data:"BTSSKU",name:'BTSSKU'},
+                    {data:"Brand",name:'Brand'},
+                    {data:"ScreenSize",name:'ScreenSize'},
+                    {data:"MFGSKU",name:'MFGSKU'},
+                    {data:"ItemDescription",name:'ItemDescription'},
+                    {data:"CategoryName",name:'category.CategoryName'},
+                    {data:"Qty",name:'Qty'},
+                    {data:"EstimatedRetail",name:'EstimatedRetail'},
+                    {data:"Price",name:'Price'},
+                    {data:"BTSLoadID",name:'BTSLoadID'},
+                    {data:"SohnenLoadID",name:'SohnenLoadID'},
+                    {data:"LoadDate",name:'LoadDate'},
+                    {data:"AddedDate",name:'AddedDate'},
                 ],
-                // columnDefs: [
-                //     {
-                //         targets: [8,9],
-                //         className: "text-right",
-                //         render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
-                //     },
-                //     {
-                //         targets: [0,2,3,4,5,6,7,10,11,12,13],
-                //         className: "text-center"
-                //     },
-                // ]
+                columnDefs: [
+                    {
+                        targets: [8,9],
+                        className: "text-right",
+                        render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
+                    },
+                    {
+                        targets: [0,2,3,4,5,6,7,10,11,12,13],
+                        className: "text-center"
+                    },
+                ]
             });
 
             $('#dateForm').on('submit',function(e){

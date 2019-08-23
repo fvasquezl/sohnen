@@ -14,23 +14,8 @@ class PurchaseController extends Controller
         $btsLoadIds = Purchase::groupBy('BTSLoadID')->pluck('BTSLoadID');
         $loadDates = Purchase::groupBy('LoadDate')->pluck('LoadDate');
 
-        $data = Purchase::leftjoin('Categories', 'Purchases.BTSCategoryID', '=', 'Categories.CategoryID')
-            ->select('Purchases.ID',
-                'Purchases.BTSSKU',
-                'Purchases.Brand',
-                'Purchases.ScreenSize',
-                'Purchases.MFGSKU',
-                'Purchases.ItemDescription',
-                'Purchases.Qty',
-                'Purchases.EstimatedRetail',
-                'Purchases.Price',
-                'Purchases.BTSLoadID',
-                'Purchases.SohnenLoadID',
-                'Purchases.LoadDate',
-                'Purchases.AddedDate',
-                'Categories.CategoryName');
-
         if ($request->ajax()) {
+            $data = Purchase::with('category');
 
             return Datatables::of($data)->filter(function($query) use($request){
                 if($loadDate = $request->loadDate){
@@ -40,6 +25,10 @@ class PurchaseController extends Controller
                     $query->where('BTSLoadID',$btsLoadId);
                 }
             },true)
+                ->editColumn('CategoryName', function($query)
+                {
+                    return $query->category->CategoryName;
+                })
                 ->addIndexColumn()->setRowId(function ($data) {
                     return $data->ID;
                 })
@@ -51,7 +40,5 @@ class PurchaseController extends Controller
             'loadDates' => $loadDates
         ]);
     }
-
-
 
 }

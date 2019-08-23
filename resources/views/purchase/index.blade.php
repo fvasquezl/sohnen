@@ -14,7 +14,7 @@
                         <th>ScreenSize</th>
                         <th>MFGSKU</th>
                         <th>ItemDescription</th>
-                        <th>CategoryName</th>
+{{--                        <th>CategoryName</th>--}}
                         <th>Qty</th>
                         <th>EstimatedRetail</th>
                         <th>Price</th>
@@ -127,7 +127,7 @@
                     {data:"ScreenSize"},
                     {data:"MFGSKU"},
                     {data:"ItemDescription"},
-                    {data:"CategoryName"},
+                    // {data:"CategoryName"},
                     {data:"Qty"},
                     {data:"EstimatedRetail"},
                     {data:"Price"},
@@ -136,17 +136,17 @@
                     {data:"LoadDate"},
                     {data:"AddedDate"},
                 ],
-                columnDefs: [
-                    {
-                        targets: [8,9],
-                        className: "text-right",
-                        render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
-                    },
-                    {
-                        targets: [0,2,3,4,5,6,7,10,11,12,13],
-                        className: "text-center"
-                    },
-                ]
+                // columnDefs: [
+                //     {
+                //         targets: [8,9],
+                //         className: "text-right",
+                //         render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
+                //     },
+                //     {
+                //         targets: [0,2,3,4,5,6,7,10,11,12,13],
+                //         className: "text-center"
+                //     },
+                // ]
             });
 
             $('#dateForm').on('submit',function(e){

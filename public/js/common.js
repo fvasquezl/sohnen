@@ -39,7 +39,6 @@ function saveInfo(url,method,form,modal){
     });
 }
 
-
 function deleteInfo(url,table='') {
     Swal.fire({
         title: 'Are you sure?',
@@ -57,7 +56,6 @@ function deleteInfo(url,table='') {
                 dataType: 'json',
             });
             request.done(function (data) {
-
 
                 Swal.fire(
                     'Deleted!',
@@ -90,7 +88,6 @@ function myAjax(url,method,data=''){
     });
     return result;
 }
-
 
 function getRowData(id,column='',$location= window.location.pathname){
 
@@ -132,6 +129,39 @@ function displayLabels(form,product,category) {
 $(document).on('change','.custom-checkbox',function() {
     $(this).attr('value', this.checked);
 });
+
+
+function saveQuotation(url, method, form) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You Want To Add This SKU!",
+        type: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Add It!'
+    }).then((result) => {
+        if (result.value) {
+            let request = $.ajax({
+                url: url,
+                type: method,
+                dataType: 'json',
+                data: $(form).serialize(),
+            });
+            request.done(function (data) {
+                Swal.fire(
+                    'SKU Added!',
+                    data.message,
+                    'success'
+                );
+            });
+            request.fail(function (jqXHR, textStatus, errorThrown) {
+                Swal.fire('Failed!', "There was something wrong", "warning");
+            });
+        }
+    });
+    return true;
+}
 
 
 

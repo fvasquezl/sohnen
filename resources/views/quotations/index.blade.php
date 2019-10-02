@@ -17,6 +17,7 @@
                     <thead>
                     <tr>
                         <th>SKU</th>
+                        <th>Description</th>
                         <th>Qty</th>
                         <th>Condition</th>
                         <th>PercentOfRetail</th>
@@ -24,7 +25,7 @@
                         <th>UserID</th>
                         <th>DateAdded</th>
                         <th>CustomerName</th>
-                        <th>Action</th>
+                        <th class="noExport">Action</th>
                     </tr>
                     </thead>
                 </table>
@@ -111,7 +112,7 @@
                             init: function(api, node, config) {
                                 $(node).removeClass('btn-secondary buttons-html5 buttons-excel')
                             },
-                            columns: [2,3,4,5,6,7,8,9]
+                            columns: [1,2,3,4,5,6,7,8]
                         },
                         {
                             extend: 'pageLength',
@@ -126,6 +127,7 @@
                 },
                 columns: [
                     {data:"SKU"},
+                    {data:"Description"},
                     {data:"Qty"},
                     {data:"Condition"},
                     {data:"PercentOfRetail"},
@@ -137,19 +139,20 @@
                 ],
                 columnDefs: [
                     {
-                        targets: [4],
+                        targets: [5],
                         className: "text-right",
                         render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
                     },
                     {
-                        targets: [2,3,4],
+                        targets: [2,3,4,5],
                         className: "text-center"
                     },
                     {
                         name: 'Action',
                         searchable:false,
-                        targets: [8],
+                        targets: [9],
                         orderable:false,
+                        visible: false,
                     },
 
                 ]

@@ -48,6 +48,7 @@ class CreateQuotationsRequest extends FormRequest
             'UserID' => auth()->id(),
             'DateAdded' => now(),
             'CustomerName'=>$this->CustomerName,
+            'Description'=> $this->Description,
         ]);
 
         $quotation->save();

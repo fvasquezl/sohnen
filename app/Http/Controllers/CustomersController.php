@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Quotation;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,18 @@ class CustomersController extends Controller
     public function removeMemory(Request $request)
     {
         if (session()->has('CustomerName') && session()->has('CustomerName')) {
+
+//            Quotation::where('UserID',auth()->id())
+//                ->where('CustomerName',session('CustomerName'))
+//                ->where('PercentOfRetail',session('PercentOfRetail'))
+//                ->delete();
+
+            auth()->user()->quotations()->where('CustomerName',session('CustomerName'))
+                ->where('PercentOfRetail',session('PercentOfRetail'))
+                ->delete();
+
             $request->session()->forget(['CustomerName', 'PercentOfRetail']);
+
         }
 
         return response()->json([

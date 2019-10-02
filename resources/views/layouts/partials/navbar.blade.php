@@ -111,6 +111,7 @@
         $("#retail").text(result.PercentOfRetail);
         location.reload();
     });
+
     $("#closeCustomerForm").on('submit',function(e){
         e.preventDefault();
         $(this).attr("action","/customers/removeMemory").attr('method','POST');

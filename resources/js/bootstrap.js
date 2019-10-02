@@ -22,8 +22,8 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-require('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min');
-require('admin-lte/plugins/fastclick/fastclick');
+//require('admin-lte/plugins/bootstrap/js/bootstrap.bundle.min');
+//require('admin-lte/plugins/fastclick/fastclick');
 require('admin-lte/dist/js/demo');
 
 window.axios = require('axios');

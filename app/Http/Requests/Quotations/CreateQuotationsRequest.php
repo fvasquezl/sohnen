@@ -27,6 +27,8 @@ class CreateQuotationsRequest extends FormRequest
     {
         return [
             'SKU' => ['required',Rule::unique('sqlsrv.dbo.Quotations')],
+            'Brand' => 'required',
+            'Model' => 'required',
             'Qty' => 'required',
             'Condition' => ['required',Rule::in(['New','B','C','X'])],
             'PercentOfRetail' => 'required',
@@ -41,6 +43,8 @@ class CreateQuotationsRequest extends FormRequest
 
         $quotation->fill([
             'SKU'=>$this->SKU,
+            'Brand' => $this->Brand,
+            'Model' => $this->Model,
             'Qty'=>$this->Qty,
             'Condition'=>$this->Condition,
             'PercentOfRetail'=>$this->PercentOfRetail,

@@ -25,6 +25,7 @@ class QuotationsController extends Controller
                 }
             })->addIndexColumn()
                 ->editColumn('UserID', auth()->user()->name )
+                ->editColumn('PercentOfRetail', '{{$PercentOfRetail}} %')
 
                 ->addColumn('Action', function($data){
                     $btns = '<a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';

@@ -17,6 +17,8 @@
                     <thead>
                     <tr>
                         <th>SKU</th>
+                        <th>Brand</th>
+                        <th>Model</th>
                         <th>Description</th>
                         <th>Qty</th>
                         <th>Condition</th>
@@ -25,7 +27,7 @@
                         <th>UserID</th>
                         <th>DateAdded</th>
                         <th>CustomerName</th>
-                        <th class="noExport">Action</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                 </table>
@@ -127,6 +129,8 @@
                 },
                 columns: [
                     {data:"SKU"},
+                    {data:"Brand"},
+                    {data:"Model"},
                     {data:"Description"},
                     {data:"Qty"},
                     {data:"Condition"},
@@ -135,24 +139,24 @@
                     {data:"UserID"},
                     {data:"DateAdded"},
                     {data:"CustomerName"},
-                    {data: 'Action'},
+                    {data:"Action"},
                 ],
                 columnDefs: [
                     {
-                        targets: [5],
+                        targets: [7],
                         className: "text-right",
                         render: $.fn.dataTable.render.number( ',', '.', 2, '$ ' )
                     },
                     {
-                        targets: [2,3,4,5],
+                        targets: [1,2,4,5,6],
                         className: "text-center"
                     },
                     {
                         name: 'Action',
                         searchable:false,
-                        targets: [9],
+                        targets: [11],
                         orderable:false,
-                        visible: false,
+                       // visible: false,
                     },
 
                 ]

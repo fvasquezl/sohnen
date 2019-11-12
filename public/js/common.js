@@ -101,6 +101,15 @@ function getRowData(id,column='',$location= window.location.pathname){
     return myAjax(url, 'GET');
 }
 
+function getUserData(id,$location= window.location.pathname){
+
+    let location = window.location.origin + $location;
+    let url =location+`/${id}/edit`;
+
+    return myAjax(url, 'GET');
+}
+
+
 function RemoveErrorsFields(form){
     $(form).each(function () {
         let input = $(this).find(':input');
@@ -123,6 +132,16 @@ function displayLabels(form,product,category) {
             }
             return category[this.id];
         });
+    });
+}
+
+function displayUserLabels(form,input) {
+
+    form.each(function () {
+        $(this).find(':input').val(function(index, value){
+            return input[this.id]
+        });
+
     });
 }
 

@@ -16,7 +16,12 @@ class QuotationsController extends Controller
 
         if ($request->ajax()) {
 
-            $data = auth()->user()->quotations();
+            if(auth()->user()->role === 'admin'){
+                $data = auth()->user()->quotations();
+            } elseif(auth()->user()->role === 'employee'){
+                $data = auth()->user()->quotations()->select('SKU','Brand','Model','Description','PercentOfRetail','DateAdded','CustomerName');
+            }
+
 
             return Datatables::of($data)->filter(function($query){
 
@@ -37,7 +42,11 @@ class QuotationsController extends Controller
                 })
                 ->make(true);
         }
-        return view('quotations.index');
+        if(auth()->user()->role==='admin')
+            return view('quotations.index');
+        elseif(auth()->user()->role==='employee'){
+            return view('quotations.employee');
+        }
     }
 
     public function store(CreateQuotationsRequest $request)

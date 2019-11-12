@@ -23,9 +23,20 @@ Route::get('/getAttribute/{sku}','AttributesController@Index');
 Route::get('/attributes/{attribute}','AttributesController@show');
 
 
-Route::apiResource('products','ProductsController');
 
-Route::apiResource('users','UsersController');
+
+//Route::apiResource('users','UsersController');
+
+Route::namespace('Products')->middleware('auth')->group(function(){
+    Route::ApiResource('products','ProductsController');
+    Route::get('products/admin','ProductsController@admin')->name('products.admin');
+    Route::get('products/employee','ProductsController@admin')->name('products.employee');
+});
+
+Route::prefix('/admin')->namespace('Admin')->middleware('auth','role:admin')->group(function(){
+    Route::resource('users','UsersController');
+});
+
 
 Route::post('/customers/saveMemory','CustomersController@saveMemory')->name('customers.saveMemory');
 Route::post('/customers/removeMemory','CustomersController@removeMemory')->name('customers.removeMemory');

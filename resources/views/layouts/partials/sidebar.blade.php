@@ -21,8 +21,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-
+                @if(auth()->user()->role ==='admin')
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="fas fa-cogs"></i>
@@ -40,6 +39,8 @@
                         </li>
                     </ul>
                 </li>
+                @endif
+
                 <li class="nav-item">
                     <a href="{{route('products.index')}}"  class="{{(request()->is('products') ? 'nav-link active' : 'nav-link')}}" >
                         <i class="fas fa-box-open"></i>
@@ -56,6 +57,7 @@
                         </p>
                     </a>
                 </li>
+                    @if(auth()->user()->role ==='admin')
                 <li class="nav-item">
                     <a href="{{route('purchase.index')}}"  class="{{(request()->is('purchase') ? 'nav-link active' : 'nav-link')}}" >
                         <i class="fas fa-shopping-basket"></i>
@@ -64,6 +66,7 @@
                         </p>
                     </a>
                 </li>
+                    @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
                        onclick="event.preventDefault();

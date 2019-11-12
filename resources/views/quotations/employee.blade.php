@@ -20,7 +20,8 @@
                         <th>Brand</th>
                         <th>Model</th>
                         <th>Description</th>
-                        <th>PercentOfRetail</th>
+                        <th>Qty</th>
+
                         <th>UserID</th>
                         <th>DateAdded</th>
                         <th>CustomerName</th>
@@ -129,7 +130,7 @@
                     {data:"Brand"},
                     {data:"Model"},
                     {data:"Description"},
-                    {data:"PercentOfRetail"},
+                    {data:"Qty"},
                     {data:"UserID"},
                     {data:"DateAdded"},
                     {data:"CustomerName"},

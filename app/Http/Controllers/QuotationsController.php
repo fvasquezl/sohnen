@@ -19,7 +19,7 @@ class QuotationsController extends Controller
             if(auth()->user()->role === 'admin'){
                 $data = auth()->user()->quotations();
             } elseif(auth()->user()->role === 'employee'){
-                $data = auth()->user()->quotations()->select('SKU','Brand','Model','Description','PercentOfRetail','DateAdded','CustomerName');
+                $data = auth()->user()->quotations()->select('SKU','Brand','Model','Description','Qty','DateAdded','CustomerName');
             }
 
 
@@ -30,7 +30,7 @@ class QuotationsController extends Controller
                 }
             })->addIndexColumn()
                 ->editColumn('UserID', auth()->user()->name )
-                ->editColumn('PercentOfRetail', '{{$PercentOfRetail}} %')
+               // ->editColumn('PercentOfRetail', '{{$PercentOfRetail}} %')
 
                 ->addColumn('Action', function($data){
                     $btns = '<a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';

@@ -26,9 +26,7 @@
                         <th>Model</th>
                         <th>Description</th>
                         <th>EstimatedRetail</th>
-                        <th>AvgCost</th>
                         <th>AddedDate</th>
-                        <th>TotalStock</th>
                         <th>TQtyPurchased</th>
                         <th>FirstPurchaseDate</th>
                     </tr>
@@ -175,13 +173,7 @@
                         data: "EstimatedRetail"
                     },
                     {
-                        data: "AvgCost"
-                    },
-                    {
                         data: "AddedDate"
-                    },
-                    {
-                        data: "TotalStock"
                     },
                     {
                         data: "TotalQtyPurchased"
@@ -214,15 +206,15 @@
 
                     {
                         targets: 6,
-                        width: 300
+                        width: 350
                     },
                     {
-                        targets: [7, 8],
+                        targets: [7],
                         className: "text-right",
                         render: $.fn.dataTable.render.number(',', '.', 2, '$ ')
                     },
                     {
-                        targets: [9, 10,11,12],
+                        targets: [9, 10],
                         className: "text-center"
                     }
                 ]

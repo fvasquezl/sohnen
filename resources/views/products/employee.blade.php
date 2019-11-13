@@ -26,7 +26,17 @@
                         <th>Model</th>
                         <th>Description</th>
                         <th>EstimatedRetail</th>
+                        <th>QtyNew</th>
+                        <th>SalePriceNew</th>
+                        <th>QtyB</th>
+                        <th>SalePriceB</th>
+                        <th>QtyC</th>
+                        <th>SalePriceC</th>
+                        <th>QtyX</th>
+                        <th>SalePriceX</th>
+                        <th>QtyPending</th>
                         <th>AddedDate</th>
+                        <th>TotalStock</th>
                         <th>TQtyPurchased</th>
                         <th>FirstPurchaseDate</th>
                     </tr>
@@ -173,7 +183,37 @@
                         data: "EstimatedRetail"
                     },
                     {
+                        data: "QtyNew"
+                    },
+                    {
+                        data: "SalePriceNew"
+                    },
+                    {
+                        data: "QtyGradeB"
+                    },
+                    {
+                        data: "SalePriceGradeB"
+                    },
+                    {
+                        data: "QtyGradeC"
+                    },
+                    {
+                        data: "SalePriceGradeC"
+                    },
+                    {
+                        data: "QtyGradeX"
+                    },
+                    {
+                        data: "SalePriceGradeX"
+                    },
+                    {
+                        data: "QtyPending"
+                    },
+                    {
                         data: "AddedDate"
+                    },
+                    {
+                        data: "TotalStock"
                     },
                     {
                         data: "TotalQtyPurchased"
@@ -206,15 +246,15 @@
 
                     {
                         targets: 6,
-                        width: 350
+                        width: 300
                     },
                     {
-                        targets: [7],
+                        targets: [7, 9, 11, 13, 15],
                         className: "text-right",
                         render: $.fn.dataTable.render.number(',', '.', 2, '$ ')
                     },
                     {
-                        targets: [9, 10],
+                        targets: [8, 10, 12, 14, 16, 17, 18, 19, 20],
                         className: "text-center"
                     }
                 ]
@@ -265,7 +305,6 @@
                 let $tr = $(this).closest('tr');
 
                 let rowId = $tr.attr('id');
-
                 $('#ajaxModal').on('shown.bs.modal', function () {
 
                     let form = $('#productForm');

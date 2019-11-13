@@ -38,14 +38,7 @@ class ProductsController extends Controller
 
         if ($request->ajax()) {
 
-            if(auth()->user()->role == 'admin'){
-                $data = Product::with('category');
-            }else{
-                $data = Product::with('category')
-                    ->select('ID','SKU','Brand','Model','Description','EstimatedRetail','AvgCost',
-                        'QtyPending','AddedDate','TotalQtyPurchased','FirstPurchaseDate');
-            }
-
+            $data = Product::with('category');
 
             return Datatables::of($data)->filter(function($query) use($request) {
                             if($brand = $request->brand){

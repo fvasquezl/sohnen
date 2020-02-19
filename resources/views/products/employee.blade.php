@@ -19,7 +19,6 @@
                     <thead>
                     <tr>
                         <th></th>
-                        <th>Action</th>
                         <th>To Cust</th>
                         <th>SKU</th>
                         <th>Brand</th>
@@ -35,6 +34,7 @@
                         <th>QtyX</th>
                         <th>SalePriceX</th>
                         <th>QtyPending</th>
+                        <th>QtyIncomplete</th>
                         <th>AddedDate</th>
                         <th>TotalStock</th>
                         <th>TQtyPurchased</th>
@@ -162,9 +162,6 @@
                 },
                 columns: [{},
                     {
-                        data: 'Action'
-                    },
-                    {
                         data: "toCustomer"
                     },
                     {
@@ -210,6 +207,9 @@
                         data: "QtyPending"
                     },
                     {
+                        data: "QtyIncomplete"
+                    },
+                    {
                         data: "AddedDate"
                     },
                     {
@@ -224,18 +224,12 @@
 
                 ],
                 columnDefs: [{
-                    searchable: false,
-                    targets: 0,
-                    className: 'details-control',
-                    orderable: false,
-                    data: null,
-                    defaultContent: ''
-                },
-                    {
-                        name: 'Action',
                         searchable: false,
-                        targets: 1,
+                        targets: 0,
+                        className: 'details-control',
                         orderable: false,
+                        data: null,
+                        defaultContent: ''
                     },
                     {
                         name: 'toCustomer',
@@ -245,16 +239,16 @@
                     },
 
                     {
-                        targets: 6,
+                        targets: 5,
                         width: 300
                     },
                     {
-                        targets: [7, 9, 11, 13, 15],
+                        targets: [6, 8, 10, 12, 14],
                         className: "text-right",
                         render: $.fn.dataTable.render.number(',', '.', 2, '$ ')
                     },
                     {
-                        targets: [8, 10, 12, 14, 16, 17, 18, 19, 20],
+                        targets: [7, 9, 10, 11, 13, 15, 16, 17, 18, 19, 20],
                         className: "text-center"
                     }
                 ]

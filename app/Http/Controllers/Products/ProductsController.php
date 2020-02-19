@@ -63,11 +63,11 @@ class ProductsController extends Controller
                 ->addColumn('TotalStock',function($data){
                     return $data->QtyNew +$data->QtyGradeB+$data->QtyGradeC+$data->QtyGradeX;
                 })
-                ->addColumn('Action', function($data){
-                    $btns = '<a href="#" class="btn btn-primary btn-sm update-btn"><i class="fas fa-pencil-alt"></i></a>
-                             <a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';
-                    return $btns;
-                })
+                // ->addColumn('Action', function($data){
+                //     $btns = '<a href="#" class="btn btn-primary btn-sm update-btn"><i class="fas fa-pencil-alt"></i></a>
+                //              <a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';
+                //     return $btns;
+                // })
                 ->rawColumns(['Action','toCustomer','TotalStock','SKU'])
                 ->setRowId(function ($data) {
                     return $data->ID;

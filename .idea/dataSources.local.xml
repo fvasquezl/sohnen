@@ -18,13 +18,13 @@
       </schema-mapping>
     </data-source>
     <data-source name="Inventory" uuid="fadba909-cd05-4de3-a322-8022d34683cd">
-      <database-info product="Microsoft SQL Server" version="12.00.5223" jdbc-version="4.2" driver-name="Microsoft JDBC Driver 7.2 for SQL Server" driver-version="7.2.1.0" dbms="MSSQL" exact-version="12.0.5223" exact-driver-version="7.2">
+      <database-info product="Microsoft SQL Server" version="12.00.5223" jdbc-version="4.2" driver-name="Microsoft JDBC Driver 7.4 for SQL Server" driver-version="7.4.1.0" dbms="MSSQL" exact-version="12.0.5223" exact-driver-version="7.4">
         <extra-name-characters>$#@</extra-name-characters>
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <secret-storage>master_key</secret-storage>
-      <user-name>sistema</user-name>
+      <user-name>tempuser</user-name>
       <schema-mapping>
         <introspection-scope>
           <node kind="database" qname="@">

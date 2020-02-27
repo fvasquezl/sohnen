@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link text-center h3">
-{{--        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"--}}
-{{--             style="opacity: .8">--}}
+        {{--        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"--}}
+        {{--             style="opacity: .8">--}}
         <span class="brand-text font-weight-light">Sohnen</span>
     </a>
 
@@ -32,7 +32,8 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('users.index')}}"  class = "{{(request()->is('users') ? 'nav-link active' :  'nav-link')}}">
+                            <a href="{{route('users.index')}}"
+                                class="{{(request()->is('users') ? 'nav-link active' :  'nav-link')}}">
                                 <i class="fas fa-users"></i>
                                 <p>Users</p>
                             </a>
@@ -42,7 +43,8 @@
                 @endif
 
                 <li class="nav-item">
-                    <a href="{{route('products.index')}}"  class="{{(request()->is('products') ? 'nav-link active' : 'nav-link')}}" >
+                    <a href="{{route('products.index')}}"
+                        class="{{(request()->is('products') ? 'nav-link active' : 'nav-link')}}">
                         <i class="fas fa-box-open"></i>
                         <p>
                             Product Catalog
@@ -50,26 +52,40 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('quotations.index')}}"  class="{{(request()->is('quotations') ? 'nav-link active' : 'nav-link')}}" >
+                    <a href="{{route('quotations.index')}}"
+                        class="{{(request()->is('quotations') ? 'nav-link active' : 'nav-link')}}">
                         <i class="fas fa-file-signature"></i>
                         <p>
                             Quotations
                         </p>
                     </a>
                 </li>
-                    @if(auth()->user()->role ==='admin')
+                @if(auth()->user()->role ==='admin')
                 <li class="nav-item">
-                    <a href="{{route('purchase.index')}}"  class="{{(request()->is('purchase') ? 'nav-link active' : 'nav-link')}}" >
+                    <a href="{{route('purchase.index')}}"
+                        class="{{(request()->is('purchase') ? 'nav-link active' : 'nav-link')}}">
                         <i class="fas fa-shopping-basket"></i>
                         <p>
                             Purchase History
                         </p>
                     </a>
                 </li>
-                    @endif
+                @endif
+
+                @if(auth()->user()->role ==='admin')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
+                    <a href="{{route('sku.index')}}"
+                        class="{{(request()->is('sku') ? 'nav-link active' : 'nav-link')}}">
+                        <i class="fas fa-shopping-basket"></i>
+                        <p>
+                            Sku Details
+                        </p>
+                    </a>
+                </li>
+                @endif
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                         <i class="fas fa-power-off"></i>
                         {{ __('Logout') }}

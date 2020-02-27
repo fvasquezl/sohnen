@@ -237,7 +237,7 @@
                     },{
                         name: 'toCustomer',
                         searchable: false,
-                        targets: 2,
+                        targets: 1,
                         orderable: false,
                     },
 

@@ -33,6 +33,11 @@ Route::namespace('Products')->middleware('auth')->group(function(){
     Route::get('products/employee','ProductsController@admin')->name('products.employee');
 });
 
+Route::namespace('Skus')->middleware('auth')->group(function(){
+     Route::ApiResource('sku','SkuDetailsController');
+});
+
+
 Route::prefix('/admin')->namespace('Admin')->middleware('auth','role:admin')->group(function(){
     Route::resource('users','UsersController');
 });

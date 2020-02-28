@@ -1,22 +1,33 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="col-lg-12 my-3">
-        <div class="card card-outline card-info">
 
-            <div class="card-body">
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
+@if (session('success'))
+<div class="alert alert-success mt-2" role="alert">
+    <button type="button" class="close" data-dismiss="alert">×</button>	
+    <strong>{{ session('success') }}</strong>
+</div>
+@endif
 
-                @include('products.shared.searchForm',[$brands,$categories])
+<div class="col-lg-12 my-3">
+    <div class="card card-outline card-info ">
 
-                <hr>
+        <div class="card-body">
+            <div class="d-flex bd-highlight">
+                <div class=" bd-highlight">
+                    @include('products.shared.searchForm',[$brands,$categories])
+                </div>
 
-                <table class="table table-striped table-bordered table-hover nowrap" id="productsTable">
-                    <thead>
+                <div class="ml-auto  bd-highlight">
+                    <button class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                        <i class="fas fa-tools"></i>
+                        Merge SKUS
+                    </button>
+                </div>
+            </div>
+            <hr>
+            <table class="table table-striped table-bordered table-hover nowrap" id="productsTable">
+                <thead>
                     <tr>
                         <th></th>
                         <th>To Cust</th>
@@ -25,6 +36,7 @@
                         <th>Model</th>
                         <th>Description</th>
                         <th>EstimatedRetail</th>
+                        <th>TotalStock</th>
                         <th>AvgCost</th>
                         <th>QtyNew</th>
                         <th>SalePriceNew</th>
@@ -37,55 +49,54 @@
                         <th>QtyPending</th>
                         <th>QtyIncomplete</th>
                         <th>AddedDate</th>
-                        <th>TotalStock</th>
                         <th>TQtyPurchased</th>
                         <th>FirstPurchaseDate</th>
                     </tr>
-                    </thead>
-                </table>
-            </div>
+                </thead>
+            </table>
         </div>
     </div>
-    @include('products.shared.modal',$categories)
-    @include('products.shared.modalQuote')
+</div>
+@include('products.shared.modal',$categories)
+@include('products.shared.modalQuote')
+@include('products.shared.modalMerge')
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.bootstrap4.min.css"/>
-    <style>
-        td.details-control {
-            background: url('img/details_open.png') no-repeat center center;
-            cursor: pointer;
-        }
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" />
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.bootstrap4.min.css" />
+<style>
+    td.details-control {
+        background: url('img/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
 
-        tr.shown td.details-control {
-            background: url('img/details_close.png') no-repeat center center;
-        }
-    </style>
+    tr.shown td.details-control {
+        background: url('img/details_close.png') no-repeat center center;
+    }
+</style>
 @endpush
 
 @push('scripts')
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js">
-    </script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js">
+</script>
 
-    <script src="{{ asset('js/common.js') }}"></script>
+<script src="{{ asset('js/common.js') }}"></script>
 
-    <script>
-        let $productsTable;
+<script>
+    let $productsTable;
 
         let customerName = "{{Session::get('CustomerName')}}";
         let percentOfRetail = "{{Session::get('PercentOfRetail')}}";
@@ -181,6 +192,9 @@
                         data: "EstimatedRetail"
                     },
                     {
+                        data: "TotalStock"
+                    },
+                    {
                         data: "AvgCost"
                     },
                     {
@@ -217,9 +231,6 @@
                         data: "AddedDate"
                     },
                     {
-                        data: "TotalStock"
-                    },
-                    {
                         data: "TotalQtyPurchased"
                     },
                     {
@@ -246,7 +257,7 @@
                         width: 300
                     },
                     {
-                        targets: [6, 7, 9, 11, 13, 15],
+                        targets: [6, 8, 10, 12, 14, 16],
                         className: "text-right",
                         render: $.fn.dataTable.render.number(',', '.', 2, '$ ')
                     },
@@ -258,7 +269,7 @@
                         }
                     },
                     {
-                        targets: [8, 10, 12, 14, 16, 17, 18, 19, 20, 21],
+                        targets: [7, 9,  13, 15, 17, 18, 19, 20, 21],
                         className: "text-center"
                     }
                 ]
@@ -395,5 +406,5 @@
             });
 
         });
-    </script>
+</script>
 @endpush

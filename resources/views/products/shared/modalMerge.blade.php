@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Enter SKU</h4>
+                <h4 class="modal-title">Merge SKUS</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,6 +13,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="RetainedSKU">RetainedSKU</label>
                                 <select name="RetainedSKU"
                                     class="select2 form-control @error('RetainedSKU') is-invalid @enderror"
                                     placeholder="Retained SKU" style="width:100%">
@@ -30,14 +31,16 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-6 bg-danger">
                             <div class="form-group">
+                                <label for="DeletedSKU">DeletedSKU</label>
                                 <select name="DeletedSKU"
                                     class="select2 form-control @error('DeletedSKU') is-invalid @enderror"
                                     placeholder="Delete Sku" style="width:100%">
                                     @foreach ($products as $product)
                                     <option value="{{ $product->SKU }}" {{ old('DeletedSKU')}}>
-                                        {{ $product->SKU }}</option>
+                                        {{ $product->SKU }}
+                                    </option>
                                     @endforeach
                                 </select>
 
@@ -92,6 +95,7 @@
         tags:true,
         theme: "classic",
         width: 'resolve'
+        
     });
 
 </script>

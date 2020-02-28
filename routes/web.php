@@ -23,8 +23,6 @@ Route::get('/getAttribute/{sku}','AttributesController@Index');
 Route::get('/attributes/{attribute}','AttributesController@show');
 
 
-
-
 //Route::apiResource('users','UsersController');
 
 Route::namespace('Products')->middleware('auth')->group(function(){
@@ -34,7 +32,7 @@ Route::namespace('Products')->middleware('auth')->group(function(){
 });
 
 Route::namespace('Skus')->middleware('auth')->group(function(){
-     Route::ApiResource('sku','SkuDetailsController');
+     Route::Resource('sku','SkuDetailsController');
 });
 
 

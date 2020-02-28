@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Skus;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Skus\SaveSkuRequest;
+use App\Lang;
 use App\Sku;
+use Carbon\Language;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -15,7 +18,9 @@ class SkuDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {    
+    {
+        $languages = Lang::get();
+
         if ($request->ajax()) {
 
             $data = Sku::with('language');
@@ -27,6 +32,9 @@ class SkuDetailsController extends Controller
                              <a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';
                     return $btns;
                 })
+                ->editColumn('LanguageID', function ($query) {
+                    return $query->language->Language;
+                })
                 ->rawColumns(['Action'])
                 ->setRowId(function ($data) {
                     return $data->ID;
@@ -34,7 +42,7 @@ class SkuDetailsController extends Controller
                 ->make(true);
         }
 
-        return view('skus.index');
+        return view('skus.index',compact('languages'));
     }
 
     /**
@@ -44,7 +52,7 @@ class SkuDetailsController extends Controller
      */
     public function create()
     {
-        //
+        $languages = Lang::get();
     }
 
     /**
@@ -53,9 +61,10 @@ class SkuDetailsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveSkuRequest $request)
     {
-        //
+        $sku = $request->createSku();
+        return redirect()->route('sku.edit', $sku);
     }
 
     /**
@@ -75,9 +84,13 @@ class SkuDetailsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sku $sku)
     {
-        //
+        $languages = Lang::get();
+        return view('skus.edit', [
+            'sku' => $sku,
+            'languages' => Lang::get(),
+        ]);
     }
 
     /**
@@ -87,9 +100,10 @@ class SkuDetailsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SaveSkuRequest $request, Sku $sku)
     {
-        //
+        $user = $request->updateSku($sku);
+        return back()->with('success', 'The product has been update successfully');
     }
 
     /**

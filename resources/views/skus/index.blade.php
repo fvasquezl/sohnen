@@ -2,16 +2,29 @@
 
 @section('content')
 <div class="col-lg-12 my-3">
+   
+    @if (session('status'))
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
+    </div>
+    @endif
+
     <div class="card card-outline card-info">
+        <div class="card-header">
+            <h3 class="card-title mt-1">
+                Skus Details
+            </h3>
+
+            <div class="card-tools">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    <i class="fa fa-plus"></i>
+                    Create Sku
+                </button>
+            </div>
+        </div>
 
         <div class="card-body">
-            @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-            @endif
-            <hr>
-
+        
             <table class="table table-striped table-bordered table-hover nowrap" id="skusTable">
                 <thead>
                     <th>ID</th>
@@ -34,6 +47,7 @@
         </div>
     </div>
 </div>
+
 
 @endsection
 
@@ -148,6 +162,14 @@
                         className: "text-center"
                     }
                 ]
+            });
+
+
+            $(document).on('click', '.update-btn', function (e) {
+                e.stopPropagation();
+                let $tr = $(this).closest('tr');
+                let rowId = $tr.attr('ID');
+                $(location).attr('href', 'sku/'+rowId+'/edit');
             });
 
   

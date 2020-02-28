@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,38 +20,40 @@
 
 
 </head>
+
 <body class="hold-transition sidebar-mini">
-<div class="wrapper" id="app">
+    <div class="wrapper" id="app">
 
-    <!-- Navbar -->
-    @include('layouts.partials.navbar')
-    <!-- /.navbar -->
+        <!-- Navbar -->
+        @include('layouts.partials.navbar')
+        <!-- /.navbar -->
 
-    <!-- Main Sidebar Container -->
-    @include('layouts.partials.sidebar')
+        <!-- Main Sidebar Container -->
+        @include('layouts.partials.sidebar')
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
 
-        <!-- Main content -->
-        <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    @yield('content')
-                </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
+            <!-- Main content -->
+            <div class="content">
+                @yield('content')
+            </div>
+            <!-- /.content -->
         </div>
-        <!-- /.content -->
+        <!-- /.content-wrapper -->
+
+        <!-- Main Footer -->
+        @include('layouts.partials.footer')
     </div>
-    <!-- /.content-wrapper -->
+    <!-- ./wrapper -->
 
-    <!-- Main Footer -->
-    @include('layouts.partials.footer')
-</div>
-<!-- ./wrapper -->
+    <script src="{{ asset('js/app.js') }}"></script>
 
-<script src="{{ asset('js/app.js') }}"></script>
-@stack('scripts')
+    @unless(request()->is('sku/*')) 
+    @include('skus.create')
+    @endunless
+
+    @stack('scripts')
 </body>
+
 </html>

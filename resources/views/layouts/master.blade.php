@@ -49,9 +49,9 @@
 
     <script src="{{ asset('js/app.js') }}"></script>
 
-    @unless(request()->is('sku/*')) 
-    @include('skus.create')
-    @endunless
+    {{-- @if(request()->is('sku/*'))  
+      @include('skus.create')
+     @endif --}}
 
     @stack('scripts')
 </body>

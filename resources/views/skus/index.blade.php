@@ -28,7 +28,7 @@
             <table class="table table-striped table-bordered table-hover nowrap" id="skusTable">
                 <thead>
                     <th>ID</th>
-                    <th>LanguageID</th>
+                    <th>Language</th>
                     <th>SKU</th>
                     <th>Title80</th>
                     <th>Title200</th>
@@ -48,7 +48,7 @@
     </div>
 </div>
 
-
+@include('skus.create')
 @endsection
 
 @push('styles')

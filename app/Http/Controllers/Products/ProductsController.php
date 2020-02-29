@@ -133,25 +133,17 @@ class ProductsController extends Controller
             'DeletedSKU' => 'required',
         ]);
 
-       //dd($request->RetainedSKU);
-    //    EXECUTE [Sohnen].[dbo].[sp_MergeSKUs] 'RetainedSKU', 'DeletedSKU'
-    //    (SQL: Sohnen].[dbo].[sp_MergeSKUs] 'SNTV000375', 'SNTV000376'
+        try {
+           $query  =  DB::select("EXEC [Sohnen].[dbo].[sp_MergeSKUs] '{$request->RetainedSKU}', '{$request->DeletedSKU}'");
+        } catch (\Exception $ex) {
+            return redirect()->route('products.index')->with('danger', "There was an error processing your order. Please try again.");
+        }
 
-        DB::select("EXEC [Sohnen].[dbo].[sp_MergeSKUs] '{$request->RetainedSKU}', '{$request->DeletedSKU}'");
-
-        // try {
-        //    // $query = DB::select("Sohnen].[dbo].[sp_MergeSKUs] '".$request->RetainedSKU,"', '".$request->DeletedSKU."'");
-        //    $query  = 
-        // } catch (\Exception $ex) {
-        //     return back()->with('errorMessage', "There was an error processing your order. Please try again.");
-        // }
-
-        // if (!$query){
-        //     return back()->with('error', 'Something is Wrong With the SKUs');
-        // }
-
-        return back()->with('success', 'Publicacion Eliminada con exito');
-       
+        if (!$query){
+            return redirect()->route('products.index')->with('danger', 'Something is Wrong With the SKUs');
+        }
+        return redirect()->route('products.index')->with('success', 'The Skus has been merged Successfully');
+   
     }
 
 }

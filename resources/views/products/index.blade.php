@@ -9,6 +9,13 @@
 </div>
 @endif
 
+@if (session('danger'))
+<div class="alert alert-danger mt-2" role="alert">
+    <button type="button" class="close" data-dismiss="alert">×</button>	
+    <strong>{{ session('danger') }}</strong>
+</div>
+@endif
+
 <div class="col-lg-12 my-3">
     <div class="card card-outline card-info ">
 

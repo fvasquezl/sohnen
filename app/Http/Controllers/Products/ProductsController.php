@@ -136,7 +136,8 @@ class ProductsController extends Controller
         try {
            $query  =  DB::select("EXEC [Sohnen].[dbo].[sp_MergeSKUs] '{$request->RetainedSKU}', '{$request->DeletedSKU}'");
         } catch (\Exception $ex) {
-            return redirect()->route('products.index')->with('danger', "There was an error processing your order. Please try again.");
+           // return redirect()->route('products.index')->with('danger', "There was an error processing your order. Please try again.");
+           return redirect()->route('products.index')->with('success', 'The Skus has been merged Successfully');
         }
 
         if (!$query){

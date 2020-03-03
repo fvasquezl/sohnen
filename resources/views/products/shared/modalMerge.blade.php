@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action="{{ route('products.merge') }}">
+            <form method="POST" action="{{ route('products.merge','#create') }}">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
@@ -32,9 +32,9 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 bg-danger">
-                            <div class="form-group">
-                                <label for="DeletedSKU">DeletedSKU</label>
+                        <div class="col-md-6 bg-warning text-dark">
+                            <div class="form-group ">
+                                <label for="DeletedSKU" style="color:red">DeletedSKU</label>
                                 <select name="DeletedSKU"
                                     class="select2 form-control @error('DeletedSKU') is-invalid @enderror"
                                     placeholder="Delete Sku" style="width:100%">
@@ -80,23 +80,25 @@
 
 
 <script>
-    // if(window.location.hash === '#create')
-    // {
-    //     $('#myModal').modal('show');
-    // }
+    if(window.location.hash === '#create')
+    {
+        $('#myModal').modal('show');
+    }
 
-    // $('#myModal').on('hide.bs.modal',function(){
-    //     window.location.hash = '#'
-    // });
+    $('#myModal').on('hide.bs.modal',function(){
+        window.location.hash = '#'
+    });
 
-    // $('#myModal').on('shown.bs.modal',function(){
-    //     $('#post-title').focus()
-    //     window.location.hash = '#create'
-    // });
+    $('#myModal').on('shown.bs.modal',function(){
+        $('#post-title').focus()
+        window.location.hash = '#create'
+    });
+
 
     $('.select2').select2({
         tags:true,
-        theme: "bootstrap4",
+       // theme: "classic",
+       theme: "bootstrap4",
         width: 'resolve'
         
     });

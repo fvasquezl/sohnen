@@ -132,12 +132,14 @@ class ProductsController extends Controller
             'RetainedSKU' => 'required',
             'DeletedSKU' => 'required',
         ]);
+        $retained = $request->RetainedSKU;
+        $deleted = $request->DeletedSKU;
 
         try {
            $query  =  DB::select("EXEC [Sohnen].[dbo].[sp_MergeSKUs] '{$request->RetainedSKU}', '{$request->DeletedSKU}'");
         } catch (\Exception $ex) {
            // return redirect()->route('products.index')->with('danger', "There was an error processing your order. Please try again.");
-           return redirect()->route('products.index')->with('success', 'The Skus has been merged Successfully');
+           return redirect()->route('products.index')->with('success', "The SKU merge Successfully Retained:{$retained}, Deleted:{$deleted}.");
         }
 
         if (!$query){

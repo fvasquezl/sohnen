@@ -12,6 +12,7 @@ try {
 
     require('bootstrap');
     require('admin-lte');
+    require('admin-lte/plugins/select2/js/select2.full');
     require('icheck-bootstrap');
 
 } catch (e) {}

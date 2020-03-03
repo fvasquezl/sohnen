@@ -17,6 +17,7 @@
                                 <select name="RetainedSKU"
                                     class="select2 form-control @error('RetainedSKU') is-invalid @enderror"
                                     placeholder="Retained SKU" style="width:100%">
+                                    <option value=""></option>
                                     @foreach ($products as $product)
                                     <option value="{{ $product->SKU }}" {{ old('RetainedSKU')}}>
                                         {{ $product->SKU }}</option>
@@ -37,6 +38,8 @@
                                 <select name="DeletedSKU"
                                     class="select2 form-control @error('DeletedSKU') is-invalid @enderror"
                                     placeholder="Delete Sku" style="width:100%">
+                                    <option value=""></option>
+                                    
                                     @foreach ($products as $product)
                                     <option value="{{ $product->SKU }}" {{ old('DeletedSKU')}}>
                                         {{ $product->SKU }}
@@ -68,12 +71,12 @@
 </div>
 
 
-@push('styles')
+{{-- @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-@endpush
+@endpush --}}
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
 
 
 <script>
@@ -93,7 +96,7 @@
 
     $('.select2').select2({
         tags:true,
-        theme: "classic",
+        theme: "bootstrap4",
         width: 'resolve'
         
     });

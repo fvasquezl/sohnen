@@ -34,7 +34,7 @@
                 <thead>
                     <th>SKU</th>
                     <th>ASIN</th>
-                    <th>ContryCode</th>
+                    <th>CountryCode</th>
                     <th>DateAdded</th>
                     {{-- <th width="100px">Action</th> --}}
                     </tr>
@@ -128,7 +128,7 @@
                 columns: [
                      {data:"SKU"},
                      {data:"ASIN"},
-                     {data:"ContryCode"},
+                     {data:"CountryCode"}, 
                      {data:"DateAdded"},
                     //  {data: 'Action', name: 'Action', orderable: false, searchable: false},
                 ],

@@ -16,4 +16,9 @@ class Sku extends Model
     {
         return $this->belongsTo(Lang::class,'LanguageID');
     }
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
 }

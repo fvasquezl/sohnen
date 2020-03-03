@@ -2,18 +2,21 @@
 
 @section('content')
 
+
 @if(Session::has('success'))
 <div class="alert alert-success alert-block mt-2">
-	<button type="button" class="close" data-dismiss="alert">×</button>	
-        <strong>{{ Session::get('success') }}</strong>
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>{{ Session::get('success') }}</strong>
 </div>
 @endif
 
-<form method="POST" action="{{ route('sku.update', $sku) }}" class="mt-4">
+@include('skus.partials.formPhotos')
+
+<form method="POST" action="{{ route('sku.update', $sku) }}">
     @csrf
     @method('PUT')
     <div class="row ">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card shadow-sm card-outline card-success">
 
                 <div class="card-body">
@@ -39,28 +42,6 @@
                         </span>
                         @enderror
                     </div>
-
-
-                    {{-- <div class="form-group">
-                        <label>Language:</label>
-                        <select name="LanguageID"
-                            class="select2 form-control @error('LanguageID') is-invalid @enderror"
-                            data-placeholder="Select Language" style="width: 100%;">
-                            @foreach ($languages as $language)
-                            <option value="{{ $language->LanguageID }}"
-                                {{ old('LanguageID',$sku->LanguageID)===$language->LanguageID ? 'selected':''}}>
-                                {{ $language->Language }}</option>
-                            @endforeach
-                        </select>
-                        @error('LanguageID')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div> --}}
-
-            
-
                     <div class="form-group">
                         <label for="Title80">Title80:</label>
                         <input name="Title80" value="{{ old('Title80', $sku->Title80) }}"
@@ -74,7 +55,7 @@
 
                     <div class="form-group">
                         <label for="Title200">Title200:</label>
-                        <textarea name="Title200" rows="5" 
+                        <textarea name="Title200" rows="3"
                             class="editor form-control @error('Title200') is-invalid @enderror"
                             placeholder="Type Title 200">{{ old('Title200',$sku->Title200) }}</textarea>
                         @error('Title200')
@@ -97,7 +78,7 @@
 
                     <div class="form-group">
                         <label>Description:</label>
-                        <textarea name="Description" rows="5"
+                        <textarea name="Description" rows="3"
                             class="editor form-control @error('Description') is-invalid @enderror"
                             placeholder="Type description">{{ old('Description',$sku->Description) }}</textarea>
                         @error('Description')
@@ -109,7 +90,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="card mb-4 shadow-sm card-outline card-success">
 
                 <div class="card-body">
@@ -163,10 +144,9 @@
                         </span>
                         @enderror
                     </div>
-
                     <div class="form-group">
                         <label>SearchTerms:</label>
-                        <textarea name="SearchTerms" rows="7"
+                        <textarea name="SearchTerms" rows="5"
                             class="editor form-control @error('SearchTerms') is-invalid @enderror"
                             placeholder="Type SearchTerms">{{ old('SearchTerms',$sku->SearchTerms) }}</textarea>
                         @error('SearchTerms')
@@ -175,7 +155,18 @@
                         </span>
                         @enderror
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm card-outline card-success">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Images</label>
+                        <div class="dropzone">
 
+                        </div>
+                    </div>
                     <div class="form-group">
                         <button class="btn btn-primary btn-block">Store SKU</button>
                     </div>
@@ -184,27 +175,36 @@
         </div>
     </div>
 </form>
-
+ 
 @endsection
 
 @push('styles')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
 @endpush
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+<script>
+    var myDropzone = new Dropzone('.dropzone',{
+         url:"/sku/{{ $sku->ID }}/photos",
+         acceptedFiles: 'image/*',
+         paramName:'photo',
 
-{{-- <script>
-    $(function () {
+        headers:{
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        dictDefaultMessage: 'Move here your images'
 
-            $('.select2').select2({
-                tags:true,
-                theme: "classic",
-                width: 'resolve'
-            });
+    });
 
-        });
+    myDropzone.on('error',function(file,res){
+         var msg = res.errors.photo[0];
+         $('.dz-error-message:last > span').text(msg);
+    });
 
-</script> --}}
+    Dropzone.autoDiscover=false;
+</script>
 
 @endpush

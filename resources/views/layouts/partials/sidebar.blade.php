@@ -76,7 +76,7 @@
                 <li class="nav-item">
                     <a href="{{route('sku.index')}}"
                         class="{{(request()->is('sku') ? 'nav-link active' : 'nav-link')}}">
-                        <i class="fas fa-shopping-basket"></i>
+                        <i class="fas fa-info-circle"></i>
                         <p>
                             Sku Details
                         </p>
@@ -88,7 +88,7 @@
                 <li class="nav-item">
                     <a href="{{route('asm.index')}}"
                         class="{{(request()->is('asm') ? 'nav-link active' : 'nav-link')}}">
-                        <i class="fas fa-shopping-basket"></i>
+                        <i class="fas fa-directions"></i>
                         <p>
                             Amazon SKU Mappining
                         </p>

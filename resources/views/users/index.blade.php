@@ -10,7 +10,7 @@
 
 
 @section('content')
-    <div class="col-lg-12 my-3">
+    <div class="col-lg-12">
         <div class="card card-outline card-info">
             <div class="card-body">
                 <table class="table table-striped table-bordered table-hover" id="users-table">

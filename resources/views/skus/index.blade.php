@@ -9,7 +9,7 @@
 @stop
 
 @section('content')
-<div class="col-lg-12 my-3">
+<div class="col-lg-12">
    
     @if (session('status'))
     <div class="alert alert-success" role="alert">

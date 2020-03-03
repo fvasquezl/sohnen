@@ -10,7 +10,7 @@
 @stop
 
 @section('content')
-<div class="col-lg-12 my-3">
+<div class="col-lg-12">
 
     @if (session('status'))
     <div class="alert alert-success" role="alert">
@@ -34,7 +34,6 @@
                 <thead>
                     <th>SKU</th>
                     <th>ASIN</th>
-                    <th>SKU</th>
                     <th>ContryCode</th>
                     <th>DateAdded</th>
                     {{-- <th width="100px">Action</th> --}}
@@ -113,7 +112,7 @@
                         init: function (api, node, config) {
                             $(node).removeClass('btn-secondary buttons-html5 buttons-excel')
                         },
-                        columns: [1,2, 3, 4, 5]
+                        columns: [1,2, 3, 4]
                     },
                         {
                             extend: 'pageLength',
@@ -129,14 +128,13 @@
                 columns: [
                      {data:"SKU"},
                      {data:"ASIN"},
-                     {data:"SKU"},
                      {data:"ContryCode"},
                      {data:"DateAdded"},
                     //  {data: 'Action', name: 'Action', orderable: false, searchable: false},
                 ],
                 columnDefs: [
                     {
-                        targets: [0,1,2,3,4],
+                        targets: [0,1,2,3],
                         className: "text-center"
                     }
                 ]

@@ -1,5 +1,14 @@
 @extends('layouts.master')
 
+
+@section('content-header')
+@include('layouts.partials.contentHeader',$info =[
+'title' =>'Quotations',
+'subtitle' => 'Administration',
+'breadCrumbs' =>['quotations','index']
+])
+@stop
+
 @section('content')
     <div class="col-lg-12 my-3">
         <div class="card card-outline card-info">

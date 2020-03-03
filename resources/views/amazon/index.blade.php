@@ -1,16 +1,17 @@
 @extends('layouts.master')
 
 @section('content-header')
+
 @include('layouts.partials.contentHeader',$info =[
-'title' =>'SKUS',
+'title' =>'Sku Mapping Amazon',
 'subtitle' => 'Administration',
-'breadCrumbs' =>['sku','index']
+'breadCrumbs' =>['asm','index']
 ])
 @stop
 
 @section('content')
 <div class="col-lg-12 my-3">
-   
+
     @if (session('status'))
     <div class="alert alert-success" role="alert">
         {{ session('status') }}
@@ -20,35 +21,23 @@
     <div class="card card-outline card-info">
         <div class="card-header">
             <h3 class="card-title mt-1">
-                Skus Details
+                SKU Mapping Amazon
             </h3>
 
             <div class="card-tools">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                    <i class="fa fa-plus"></i>
-                    Create Sku
-                </button>
             </div>
         </div>
 
         <div class="card-body">
-        
+
             <table class="table table-striped table-bordered table-hover nowrap" id="skusTable">
                 <thead>
-                    <th>ID</th>
-                    <th>Language</th>
                     <th>SKU</th>
-                    <th>Title80</th>
-                    <th>Title200</th>
-                    <th>Bullet1</th>
-                    <th>Bullet2</th>
-                    <th>Bullet3</th>
-                    <th>Bullet4</th>
-                    <th>Bullet5</th>
-                    <th>ShortDescription</th>
-                    <th>Description</th>
-                    <th>SearchTerms</th>
-                    <th width="100px">Action</th>
+                    <th>ASIN</th>
+                    <th>SKU</th>
+                    <th>ContryCode</th>
+                    <th>DateAdded</th>
+                    {{-- <th width="100px">Action</th> --}}
                     </tr>
                 </thead>
             </table>
@@ -56,7 +45,6 @@
     </div>
 </div>
 
-@include('skus.create')
 @endsection
 
 @push('styles')
@@ -101,8 +89,6 @@
                 stateSave: true,
                 serverSide: true,
                 scrollY: "53vh",
-                scrollX: true,
-                select: true,
                 dom: '"<\'row\'<\'col-md-6\'B><\'col-md-6\'f>>" +\n' +
                     '"<\'row\'<\'col-sm-12\'tr>>" +\n' +
                     '"<\'row\'<\'col-sm-12 col-md-5\'i ><\'col-sm-12 col-md-7\'p>>"',
@@ -127,7 +113,7 @@
                         init: function (api, node, config) {
                             $(node).removeClass('btn-secondary buttons-html5 buttons-excel')
                         },
-                        columns: [1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+                        columns: [1,2, 3, 4, 5]
                     },
                         {
                             extend: 'pageLength',
@@ -138,35 +124,19 @@
                 },
 
                 ajax: {
-                    url: '/sku'
+                    url: '/asm'
                 },
                 columns: [
-                    {data:"ID"},
-                    {data:"LanguageID"},
-                    {data:"SKU"},
-                    {data:"Title80"},
-                    {data:"Title200"},
-                    {data:"Bullet1"},
-                    {data:"Bullet2"},
-                    {data:"Bullet3"},
-                    {data:"Bullet4"},
-                    {data:"Bullet5"},
-                    {data:"ShortDescription"},
-                    {data:"Description"},
-                    {data:"SearchTerms"},
-                    {data: 'Action', name: 'Action', orderable: false, searchable: false},
+                     {data:"SKU"},
+                     {data:"ASIN"},
+                     {data:"SKU"},
+                     {data:"ContryCode"},
+                     {data:"DateAdded"},
+                    //  {data: 'Action', name: 'Action', orderable: false, searchable: false},
                 ],
                 columnDefs: [
                     {
-                        targets: 3,
-                        width: 300
-                    },
-                    {
-                        targets: 4,
-                        width: 300
-                    },
-                    {
-                        targets: [7,8,9, 10,11,12, 13],
+                        targets: [0,1,2,3,4],
                         className: "text-center"
                     }
                 ]

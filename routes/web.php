@@ -36,6 +36,10 @@ Route::namespace('Skus')->middleware('auth')->group(function(){
      Route::Resource('sku','SkuDetailsController');
 });
 
+Route::namespace('Amazon')->middleware('auth')->group(function(){
+    Route::Resource('asm','SkuMappingController');
+});
+
 
 Route::prefix('/admin')->namespace('Admin')->middleware('auth','role:admin')->group(function(){
     Route::resource('users','UsersController');

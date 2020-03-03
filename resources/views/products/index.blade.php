@@ -1,5 +1,15 @@
 @extends('layouts.master')
 
+@section('content-header')
+
+@include('layouts.partials.contentHeader',$info =[
+'title' =>'Product Catalog',
+'subtitle' => 'Administration',
+'breadCrumbs' =>['products','index']
+])
+@stop
+
+
 @section('content')
 
 @if (session('success'))

@@ -83,6 +83,19 @@
                     </a>
                 </li>
                 @endif
+
+                @if(auth()->user()->role ==='admin')
+                <li class="nav-item">
+                    <a href="{{route('asm.index')}}"
+                        class="{{(request()->is('asm') ? 'nav-link active' : 'nav-link')}}">
+                        <i class="fas fa-shopping-basket"></i>
+                        <p>
+                            Amazon SKU Mappining
+                        </p>
+                    </a>
+                </li>
+                @endif
+
                 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();

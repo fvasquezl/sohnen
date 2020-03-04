@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AMS extends Model
 {
     protected $table = 'AmazonMerchantSKU';
-    // protected $primaryKey = 'SKU';
-     public $timestamps = false;
-     protected $guarded = [];
+    protected $primaryKey = 'ID';
+    public $timestamps = false;
+    protected $guarded = [];
 }

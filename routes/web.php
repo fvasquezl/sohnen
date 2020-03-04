@@ -33,13 +33,12 @@ Route::namespace ('Skus')->middleware('auth')->group(function () {
     Route::post('sku/{sku}/photos', 'PhotosController@store')->name('sku.photos.store');
     Route::delete('photos/{photo}', 'PhotosController@destroy')->name('photos.destroy');
 
-   
-
 });
 
 Route::namespace ('Amazon')->middleware('auth')->group(function () {
     Route::Resource('asm', 'SkuMappingController');
     Route::put('asm/renewed/{asm}', 'RenewedController@update')->name('asm.renewed.update');
+    Route::Resource('ams', 'MerchantSKUController');
 });
 
 Route::prefix('/admin')->namespace('Admin')->middleware('auth', 'role:admin')->group(function () {

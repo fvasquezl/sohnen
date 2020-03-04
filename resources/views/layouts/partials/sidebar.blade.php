@@ -96,6 +96,18 @@
                 </li>
                 @endif
 
+                @if(auth()->user()->role ==='admin')
+                <li class="nav-item">
+                    <a href="{{route('ams.index')}}"
+                        class="{{(request()->is('ams') ? 'nav-link active' : 'nav-link')}}">
+                        <i class="fas fa-wrench"></i>
+                        <p>
+                            Amazon Merchant SKU
+                        </p>
+                    </a>
+                </li>
+                @endif
+
                 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();

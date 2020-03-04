@@ -182,6 +182,24 @@ function saveQuotation(url, method, form) {
     return true;
 }
 
+function myAjaxPost(url,method,data=''){
+    let result = '';
+    $.ajax({
+        url: url,
+        method: method,
+        dataType: 'json',
+        data: data,
+        async: false,
+        success: function (ret) {
+             return result=ret;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        
+        }
+    });
+    return result;
+}
+
 
 
 

@@ -32,11 +32,12 @@
 
             <table class="table table-striped table-bordered table-hover nowrap" id="skusTable">
                 <thead>
+                    <th>ID</th>
                     <th>SKU</th>
                     <th>ASIN</th>
                     <th>CountryCode</th>
                     <th>DateAdded</th>
-                    {{-- <th width="100px">Action</th> --}}
+                    <th>IsRenewed?</th>
                     </tr>
                 </thead>
             </table>
@@ -126,18 +127,33 @@
                     url: '/asm'
                 },
                 columns: [
-                     {data:"SKU"},
-                     {data:"ASIN"},
-                     {data:"CountryCode"}, 
-                     {data:"DateAdded"},
-                    //  {data: 'Action', name: 'Action', orderable: false, searchable: false},
+                    {data:"ID"},
+                    {data:"SKU"},
+                    {data:"ASIN"},
+                    {data:"CountryCode"}, 
+                    {data:"DateAdded"},
+                    {data:"IsRenewed"},
                 ],
                 columnDefs: [
                     {
-                        targets: [0,1,2,3],
+                    targets: 5,
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            return `<input type="checkbox" class="is-renewed custom-checkbox" value="${data?'true':'false'}">`
+                        }
+                        return data
+                    },
+                    className: "text-center"
+                    },{
+                        targets: [0,1,2,3,4],
                         className: "text-center"
                     }
-                ]
+                ],
+            rowCallback: function (row, data) {
+                // Set the checked state of the checkbox in the table
+                $('.is-renewed', row).prop('checked', data.IsRenewed == 1);
+                //$('.dont-del', row).prop('checked', data.DontDel == 1);
+            }
             });
 
 
@@ -146,6 +162,29 @@
                 let $tr = $(this).closest('tr');
                 let rowId = $tr.attr('ID');
                 $(location).attr('href', 'sku/'+rowId+'/edit');
+            });
+
+
+            // IsRenewed checkbox
+            $(document).on('change','.is-renewed',function(){
+                let $tr = $(this).closest('tr');
+                let $td = $(this).parent();
+                let value = this.value;
+                let rowId = $tr.attr('id');
+                let url = `asm/renewed/${rowId}`;
+
+                $form = $(`<form><form>`);
+                $form.append(`<input type="hidden" name="IsRenewed" value="${value}">`);
+                let $return = myAjaxPost(url,'PUT',$form.serialize());
+
+                if($return){
+                    $td.find('checkbox',function(i, o) {
+                        $(o).val(value);
+                    });
+                }else{
+                    $skusTable.cell($td).invalidate().draw();
+                }
+                return true;
             });
 
   

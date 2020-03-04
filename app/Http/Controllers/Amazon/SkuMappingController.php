@@ -30,7 +30,7 @@ class SkuMappingController extends Controller
                 })
                 ->rawColumns(['Action'])
                 ->setRowId(function ($data) {
-                    return $data->SKU;
+                    return $data->ID;
                 })
                 ->make(true);
         }

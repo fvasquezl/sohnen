@@ -69,7 +69,7 @@ class ProductsController extends Controller
             //              <a href="#" class="btn btn-danger btn-sm delete-btn"><i class="fas fa-trash-alt"></i></a>';
             //     return $btns;
             // })
-                ->rawColumns(['Action', 'toCustomer', 'TotalStock', 'SKU'])
+                ->rawColumns(['toCustomer', 'TotalStock'])
                 ->setRowId(function ($data) {
                     return $data->ID;
                 })

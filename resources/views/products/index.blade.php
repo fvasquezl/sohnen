@@ -43,7 +43,7 @@
                 </div>
             </div>
             <hr>
-            <table class="table table-striped table-bordered table-hover nowrap" id="productsTable">
+            <table class="table table-bordered table-hover nowrap" id="productsTable">
                 <thead>
                     <tr>
                         <th></th>
@@ -75,6 +75,7 @@
     </div>
 </div>
 @include('products.shared.modal',$categories)
+@include('products.shared.qtyModal')
 @include('products.shared.modalQuote')
 @include('products.shared.modalMerge')
 @endsection
@@ -120,12 +121,55 @@
 
         function format(d) {
 
-            let result = '';
+            let result = `<thead>
+                            <tr>
+                                <th colspan="2" class="table-primary text-center">New</th>
+                                <th colspan="2" class="table-success text-center">GRADE B</th>
+                                <th colspan="2" class="table-active text-center">GRADE C</th>
+                                <th colspan="2" class="table-warning text-center">GRADE X</th>
+                                <th colspan="2" class="table-secondary text-center">PENDING</th>
+                                <th colspan="2" class="table-info text-center">INCOMPLETE</th>
+                            </tr>
+                            <tr>
+                                <th class="table-primary text-center">Bin</th>
+                                <th class="table-primary text-center">Qty</th>
+                                <th class="table-success text-center">Bin</th>
+                                <th class="table-success text-center">Qty</th>
+                                <th class="table-active text-center">Bin</th>
+                                <th class="table-active text-center">Qty</th>
+                                <th class="table-warning text-center">Bin</th>
+                                <th class="table-warning text-center">Qty</th>
+                                <th class="table-secondary text-center">Bin</th>
+                                <th class="table-secondary text-center">Qty</th>
+                                <th class="table-info text-center">Bin</th>
+                                <th class="table-info text-center">Qty</th>
+                            </tr>
+
+                           </thead>
+                           <tbody>
+                               
+                              
+                            
+                            `;
             $.map(d, function (value, index) {
-                result += `<tr><td><strong>` + index + '</strong></td><td>' + value + `</td></tr>`;
+                result += `<tr>
+                                <td class="text-center">`+value.CONDITION_NEW_BIN+`</td>
+                                <td class="text-center">`+value.CONDITION_NEW_QTY+`</td>
+                                <td class="text-center">`+value.CONDITION_GRB_BIN+`</td>
+                                <td class="text-center">`+value.CONDITION_GRB_QTY+`</td>
+                                <td class="text-center">`+value.CONDITION_GRC_BIN+`</td>
+                                <td class="text-center">`+value.CONDITION_GRC_QTY+`</td>
+                                <td class="text-center">`+value.CONDITION_GRX_BIN+`</td>
+                                <td class="text-center">`+value.CONDITION_GRX_QTY+`</td>
+                                <td class="text-center">`+value.CONDITION_PEN_BIN+`</td>
+                                <td class="text-center">`+value.CONDITION_PEN_QTY+`</td>
+                                <td class="text-center">`+value.CONDITION_INC_BIN+`</td>
+                                <td class="text-center">`+value.CONDITION_INC_QTY+`</td>
+                           </tr>`;
             });
 
-            return `<table id="map">` + result + `</table>`;
+           return `<table class="table table-sm">` + result + `</tbody></table>`;
+   
         }
 
 
@@ -135,6 +179,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
             $productsTable = $('#productsTable').DataTable({
                 pageLength: 25,
                 lengthMenu: [
@@ -279,14 +324,7 @@
                         render: $.fn.dataTable.render.number(',', '.', 2, '$ ')
                     },
                     {
-                        targets: 11,
-                        className: "text-center",
-                        render: function (data, type, row) {
-                            return `<a href="#">${data}</a>`;
-                        }
-                    },
-                    {
-                        targets: [7, 9,  13, 15, 17, 18, 19, 20, 21],
+                        targets: [7, 9, 11, 13, 15, 17, 18, 19, 20, 21],
                         className: "text-center"
                     }
                 ]
@@ -295,9 +333,8 @@
             $('#productsTable tbody').on('click', 'td.details-control', function () {
                 let tr = $(this).closest('tr');
                 let row = $productsTable.row(tr);
-                let attributes = getRowData(row.data().SKU, '', '/getAttribute');
-                let data = getRowData(attributes[0].ID, '', '/attributes');
-
+                let url = '/products/qty/'+row.data().SKU;
+                let data = myAjax(url,'GET');
                 if (row.child.isShown()) {
                     row.child.hide();
                     tr.removeClass('shown');
@@ -314,8 +351,7 @@
                     .fixedColumns().relayout();
             });
 
-            $productsTable.buttons().container()
-                .appendTo('#example_wrapper .col-md-6:eq(0)');
+            $productsTable.buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
 
 
             $('#productCatalog-form').on('submit', function (e) {

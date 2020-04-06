@@ -18,42 +18,19 @@
     </div>
     @endif
 
-    <div class="card card-outline card-info">
-        <div class="card-header">
-            <h3 class="card-title mt-1">
-                Amazon Merchant SKU
-            </h3>
-
-            <div class="card-tools">
-            </div>
-        </div>
-
-        <div class="card-body">
-
-            <table class="table table-striped table-bordered table-hover nowrap" id="skusTable">
-                <thead>
-                    <th>ID</th>
-                    <th>SKU</th>
-                    <th>MerchantSKU</th>
-                    <th>AccountName</th>
-                    <th>DateAdded</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-    </div>
+    <table-component></table-component>
 </div>
 
 @endsection
 
 @push('styles')
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" />
+{{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" />
 <link rel="stylesheet" type="text/css"
-    href="https://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.bootstrap4.min.css" />
+    href="https://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.bootstrap4.min.css" /> --}}
 @endpush
 
 @push('scripts')
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
@@ -151,5 +128,5 @@
             });
 
         });
-</script>
+</script> --}}
 @endpush

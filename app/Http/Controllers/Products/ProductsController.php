@@ -146,7 +146,7 @@ class ProductsController extends Controller
             return redirect()->route('products.index')->with('danger', 'Something is Wrong With the SKUs');
         }
         return redirect()->route('products.index')->with('success', 'The Skus has been merged Successfully');
-   
+
     }
 
 }

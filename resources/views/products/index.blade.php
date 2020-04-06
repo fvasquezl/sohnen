@@ -14,14 +14,14 @@
 
 @if (session('success'))
 <div class="alert alert-success mt-2" role="alert">
-    <button type="button" class="close" data-dismiss="alert">×</button>	
+    <button type="button" class="close" data-dismiss="alert">×</button>
     <strong>{{ session('success') }}</strong>
 </div>
 @endif
 
 @if (session('danger'))
 <div class="alert alert-danger mt-2" role="alert">
-    <button type="button" class="close" data-dismiss="alert">×</button>	
+    <button type="button" class="close" data-dismiss="alert">×</button>
     <strong>{{ session('danger') }}</strong>
 </div>
 @endif
@@ -121,7 +121,26 @@
 
         function format(d) {
 
-            let result = `<thead>
+            let tableUrl = '/products/qty/'+d;
+            let t = myAjax(tableUrl,'GET');
+
+            let imagesUrl = 'products/image/'+d;
+            let i = myAjax(imagesUrl,'GET');
+            let images = "";
+
+            if(!i){
+                images= "No Images"
+            }else {
+                $.map(i, function (value, index) {
+                    images += `<span>
+                                    <a href="`+value+`" target="_blank" class="ml-3">
+                                        <img src="`+value+`" class="img-thumbnail align-top mt-4" alt="Smiley face" height="150" width="150">
+                                    </a>
+                               <span>`;
+                });
+            }
+
+            let table = `<thead>
                             <tr>
                                 <th colspan="2" class="table-primary text-center">New</th>
                                 <th colspan="2" class="table-success text-center">GRADE B</th>
@@ -144,15 +163,11 @@
                                 <th class="table-info text-center">Bin</th>
                                 <th class="table-info text-center">Qty</th>
                             </tr>
-
                            </thead>
                            <tbody>
-                               
-                              
-                            
                             `;
-            $.map(d, function (value, index) {
-                result += `<tr>
+            $.map(t, function (value, index) {
+                table += `<tr>
                                 <td class="text-center">`+value.CONDITION_NEW_BIN+`</td>
                                 <td class="text-center">`+value.CONDITION_NEW_QTY+`</td>
                                 <td class="text-center">`+value.CONDITION_GRB_BIN+`</td>
@@ -168,8 +183,25 @@
                            </tr>`;
             });
 
-           return `<table class="table table-sm">` + result + `</tbody></table>`;
-   
+        var val = `
+            <ul class="nav nav-tabs " id="myTab`+d+`" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="bin-tab-`+d+`" data-toggle="tab" href="#bin-`+d+`" role="tab" aria-controls="bin" aria-selected="true">Bins</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="image-tab-`+d+`" data-toggle="tab" href="#image-`+d+`" role="tab" aria-controls="image" aria-selected="false">Images</a>
+            </li>
+            </ul>
+            <div class="tab-content" id="myTab`+d+`Content">
+            <div class="tab-pane fade show active" id="bin-`+d+`" role="tabpanel" aria-labelledby="bin-tab">
+                <table class="table table-sm">`+table+`</tbody></table>
+            </div>
+            <div class="tab-pane fade" id="image-`+d+`" role="tabpanel" aria-labelledby="image-tab">
+                `+images+`
+            </div>
+            </div>`;
+      return val;
+
         }
 
 
@@ -333,8 +365,9 @@
             $('#productsTable tbody').on('click', 'td.details-control', function () {
                 let tr = $(this).closest('tr');
                 let row = $productsTable.row(tr);
-                let url = '/products/qty/'+row.data().SKU;
-                let data = myAjax(url,'GET');
+                // let url = '/products/qty/'+row.data().SKU;
+                // let data = myAjax(url,'GET');
+                let data = row.data().SKU;
                 if (row.child.isShown()) {
                     row.child.hide();
                     tr.removeClass('shown');

@@ -16,4 +16,7 @@ use Illuminate\Http\Request;
 //    Route::apiResource('products','Api\ProductCatalogController');
 //  //  Route::apiResource('roles','Api\RolesController');
 //});
+Route::name('api.')->group(function (){
+    Route::apiResource('ams','Api\MerchantSKUController');
+});
 

@@ -27,6 +27,7 @@ Route::namespace ('Products')->middleware('auth')->group(function () {
     Route::post('products/merge', 'ProductsController@merge')->name('products.merge');
 
     Route::get('products/qty/{sku}','QtyController@index')->name('products.qty');
+    Route::get('products/image/{sku}','ImageController@index')->name('products.image');
 });
 
 Route::namespace ('Skus')->middleware('auth')->group(function () {

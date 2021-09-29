@@ -28,7 +28,7 @@
     "@ttskch/select2-bootstrap4-theme": "^1.3.2",
     "admin-lte": "^3.0.2",
     "bootstrap-input-spinner": "^1.13.3",
-    "datatables.net": "^1.10.20",
+    "datatables.net": "^1.11.3",
     "datatables.net-bs4": "^1.10.20",
     "icheck-bootstrap": "^3.0.1",
     "sweetalert2": "^8.19.0",
